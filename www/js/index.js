@@ -1,6 +1,6 @@
 function initialize() {
     var map = L.map('map').setView([48.209219, 16.370821], 16);
-    L.tileLayer('../../MapQuest_Vienna/{z}/{x}/{y}.png', {
+    L.tileLayer('../../tiles_vienna/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 	
