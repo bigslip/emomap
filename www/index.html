@@ -1,58 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="xContent-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
-    <link rel="stylesheet" href="css/lib/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <title>Hello World</title>
-</head>
-<body>
-<div data-role="page" id="page1">
-<div data-role="header">
-<h1>EmoMap</h1>
-</div>
-<div role="main" class="ui-content">
-<div data-role="tabs" class="tabs">
-<div data-role="navbar">
-<ul>
-<li><a href="#fragment-map" class="ui-btn-active">Map</a></li>
-<li><a href="#fragment-settings">Settings</a></li>
-<li><a href="#fragment-browse">Browse</a></li>
-<li><a href="#fragment-info">Info</a></li>
-</div>
-</ul>
-
-<div id="fragment-map">
-<div class="map" id="map"></div>
-<div class="slider-wrapper">
-<input type="range" name="slider-1" id="slider-1" value="0" min="-3" max="3">
-</div>
-</div>
-
-<div id="fragment-settings">
-<p>Settings.</p>
-</div>
-
-<div id="fragment-browse">
-</div>
-
-<div id="fragment-info">
-<h2>About EmoMap</h2>
-<p>EmoMap has been created at <a href="http://www.tuwien.ac.at/">TU Wien</a>.</p>
-</div>
-
-</div>
-</div>
-</div>
-
-<script type="text/javascript" src="cordova.mock.js"></script>
-<script type="text/javascript" src="js/lib/jquery-1.11.3.js"></script>
-<script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.js"></script>
-<script type="text/javascript" src="js/lib/leaflet-src.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-</body>
+	<head>
+		<meta http-equiv="xContent-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+		<link rel="stylesheet" href="css/lib/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<title>Hello World</title>
+	</head>
+	<body>
+		<div data-role="page" id="page1">
+			<div data-role="header">
+				<h1>EmoMap</h1>
+			</div>
+			<div role="main" class="ui-content">
+				<div data-role="tabs" class="tabs">
+					<div data-role="navbar">
+						<ul>
+							<li><a id="navbar-start" class="ui-btn-active">Home</a></li>
+							<li><a id="navbar-my">My EmoMap</a></li>
+							<li><a id="navbar-all">All EmoMap</a></li>
+							<li><a id="navbar-about">Info</a></li>
+						</div>
+					</ul>
+					
+					<div class="map" id="map"></div>
+					
+					<div id="start-menu">
+						<p id="start-menu-contribute">How do you like this place?</p>
+						<p id="start-menu-my">My EmoMap</p>
+						<p id="start-menu-all">All EmoMap</p>
+						<p id="start-menu-about">About</p>
+					</div>
+					
+					<div id="slider-comfort">
+						<input type="range" name="slider1" id="slider1" value="0" min="-3" max="3">
+					</div>
+					
+					<div id="info">
+						<h2>About EmoMap</h2>
+						<p>EmoMap has been created at <a href="http://www.tuwien.ac.at/">TU Wien</a>.</p>
+					</div>
+					
+				</div>
+				
+				
+				<div data-role="footer">
+					<p class="next" id="next"><b>Next</b></p>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="cordova.mock.js"></script>
+		<script type="text/javascript" src="cordova_plugins.mock.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.js"></script>
+		<script type="text/javascript" src="js/lib/leaflet-src.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
 </html>
