@@ -36,7 +36,52 @@
 					</div>
 					
 					<div id="slider-comfort">
-						<input type="range" name="slider1" id="slider1" value="0" min="-3" max="3">
+						<span id="slider-comfort-label">This place is:</span>
+						<input type="range" name="slider1" id="slider1" value="4" min="1" max="7">	
+						<span id="slider-comfort-label-1">uncomfortable</span>						
+						<span id="slider-comfort-label-7">comfortable</span>						
+					</div>
+					
+					<div id="checkbox-adj">
+						<fieldset>
+							<label for="adj" id= "adj-label" >This place is:</label>
+							<select name="adj" id="adj" multiple="multiple" data-native-menu="false">
+								<option value="Active">Active</option>
+								<option value="Beautiful">Beautiful</option>
+								<option value="Boring">Boring</option>
+								<option value="Comfortable">Comfortable</option>
+								<option value="Desolate">Desolate</option>
+								<option value="Disgusting">Disgusting</option>
+								<option value="Enjoyable">Enjoyable</option>
+								<option value="Exciting">Exciting</option>
+								<option value="Frightening">Frightening</option>
+								<option value="Frustrating">Frustrating</option>
+								<option value="Hectic">Hectic</option>
+								<option value="Majestic">Majestic</option>
+								<option value="Placeful">Placeful</option>
+								<option value="Sleepy">Sleepy</option>
+							</select>
+						</fieldset>
+					</div>
+					
+					<div id="checkbox-conx">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							        <legend id="checkbox-conx-label">I'm here ...</legend>
+							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2a" id="checkbox-h-2a" value="alone" checked>
+							        <label for="checkbox-h-2a">alone</label>
+							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2b" id="checkbox-h-2b" value="with_adults">
+							        <label for="checkbox-h-2b">with adult(s)</label>
+							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2c" id="checkbox-h-2c" value="with_children">
+							        <label for="checkbox-h-2c">with child(ren)</label>
+									<input type="checkbox" class="checkbox-with" name="checkbox-h-2d" id="checkbox-h-2d" value="with_dogs">
+							        <label for="checkbox-h-2d">with dog(s)</label>
+						</fieldset>						
+						<fieldset data-role="controlgroup" data-type="horizontal">							
+							<input type="radio" name="radio-choice-2" id="radio-choice-21" value="first_time" checked="checked" />
+							<label for="radio-choice-21">for the first time</label>							
+							<input type="radio" name="radio-choice-2" id="radio-choice-22" value="more_often"  />
+							<label for="radio-choice-22">more often</label>				
+						</fieldset>
 					</div>
 					
 					<div id="info">
@@ -48,16 +93,32 @@
 				
 				
 				<div data-role="footer">
-					<p class="next" id="next"><b>Next</b></p>
+					<div id="mainpage-footer">						
+						<span class="footer-left" id="close-app">Close EmoApp</span>						
+					</div>
+					<div id="back_to_start-footer">						
+						<span class="footer-left" id="back-to-start">Back to Start</span>						
+					</div>
+					<div id="comfort-footer">		
+						<span class="footer-right" id="comfort-footer-right">next</span>
+					</div>	
+					<div id="adj-footer">						
+						<span class="footer-left" id="adj-footer-left">back</span>						
+						<span class="footer-right" id="adj-footer-right">next</span>
+					</div>		
+					<div id="conx-footer">						
+						<span class="footer-left" id="conx-footer-left">back</span>						
+						<span class="footer-right" id="conx-footer-right">submit</span>
+					</div>						
 				</div>
 			</div>
 		</div>
 		
-		<script type="text/javascript" src="cordova.mock.js"></script>
-		<script type="text/javascript" src="cordova_plugins.mock.js"></script>
+		<script type="text/javascript" src="cordova.mock.js"></script>		
 		<script type="text/javascript" src="js/lib/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.js"></script>
 		<script type="text/javascript" src="js/lib/leaflet-src.js"></script>
+		<script type="text/javascript" src="js/lib/pouchdb.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 	</body>
 </html>
