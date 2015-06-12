@@ -1,18 +1,49 @@
-function initialize() {
-    var map = L.map('map').setView([48.209219, 16.370821], 16);
-    L.tileLayer('../../tiles_vienna/{z}/{x}/{y}.png', {
-        //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-	
+function initialize() {    
 	//initial values
-	var curLat = 48.209219;
-	var curLng = 16.370821;
+	var curLatLng = [48.209219,16.370821];
 	var level_of_comfort=4;
 	var adj="";
 	var conx_with="alone";
 	var conx_first="first_time";
 	var marker;
-			
+	
+	var db = new PouchDB('emomap11',{auto_compaction:true});
+	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:5984/todos';
+	var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_all';
+	
+	db.changes({
+		since: 'now',
+		live: true
+		}).on('change', function(change) {
+		// handle change
+	});
+	
+	if (remoteUserCouch) {
+		var opts = {live: true};
+		db.replicate.to(remoteUserCouch, opts, syncError);		
+		db.replicate.from(remoteUserCouch, opts, syncError);
+		db.replicate.to(remoteAllCouch, opts, syncError);
+	}
+	// There was some form or error syncing
+	function syncError() {
+		console.log('There was some form or error syncing!');
+	}
+	/*
+		var map = L.map('map').setView(curLatLng, 16);
+		L.tileLayer('../../tiles_vienna/{z}/{x}/{y}.png', {
+        //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+	*/
+	var map = L.map('map', {
+		center: curLatLng,
+		zoom: 16,
+		minZoom: 12,
+		maxZoom: 16,
+	});	
+	L.tileLayer('../../tiles_vienna/{z}/{x}/{y}.png', {
+        //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+	
 	$("#start-menu-contribute").click(function(){
 		//enabling comfort slider to start contributing
 		$("#start-menu,#checkbox-adj,#checkbox-conx,#info").hide();
@@ -28,14 +59,36 @@ function initialize() {
 		$("#radio-choice-21").prop("checked",true).checkboxradio("refresh"); 
 		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 
 		
+		marker.getPopup().setContent("Drag the marker to correct location!");
+		
 		//set all initial values		
+		level_of_comfort=4;
 		adj="";
+		conx_with="alone";
+		conx_first="first_time";
 		
 	});
 	
-	$("#start-menu-my").click(myEmoMap); //show the user' contributions
-	$("#start-menu-all").click(allEmoMap); //show all contributions
-	$("#start-menu-about").click(Info);//information about emomap
+	//show the user' contributions
+	$("#start-menu-my, #navbar-my").click(function(){
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
+		$("#navbar-my").addClass("ui-btn-active");		
+		//read data from the local database
+		db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+			//process all layers
+			var locations=[];
+			var emos=[];
+			doc.rows.forEach(function(todo) {
+				locations.push(todo.doc.location);
+				emos.push(todo.doc.comfort);
+				vizEmos(map, locations, emos);
+			});
+			
+		});
+	}); 
+	$("#start-menu-all, #navbar-all").click(allEmoMap); //show all contributions
+	$("#start-menu-about,#navbar-about").click(Info);//information about emomap
 	
 	$("#navbar-start").click(function(){
 		//start the main page
@@ -43,11 +96,7 @@ function initialize() {
 		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
 		$("#navbar-start").addClass("ui-btn-active");
 		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
-	});
-	
-	$("#navbar-my").click(myEmoMap);	
-	$("#navbar-all").click(allEmoMap);	
-	$("#navbar-about").click(Info);
+	});	
 	
 	$("#comfort_cancel").click(function(){
 		//go back to start page
@@ -60,7 +109,7 @@ function initialize() {
 		$("#start-menu,#slider-comfort,#checkbox-conx,#info").hide();
 		$("#checkbox-adj").show();
 		if(adj=="")
-			$("#adj_next").addClass("ui-disabled");//disable "next"
+		$("#adj_next").addClass("ui-disabled");//disable "next"
 	});
 	
 	$("#adj_back").click(function(){
@@ -82,27 +131,48 @@ function initialize() {
 		$("#adj_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#conx_next").click(function(){
-		//submit to pouchdb and couchdb 
-		//add result to map	
-		//set all variables to initial values
+		//submit to pouchdb and couchd, add result to map, set all variables to initial values
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
-		alert("Thank you!");
+		
+		var timestamp= new Date().toISOString();
+		var emo = {
+			_id: timestamp,
+			location: curLatLng,
+			timestamp: timestamp,
+			comfort: level_of_comfort,
+			adjective: adj,
+			conx_with: conx_with,
+			conx_first: conx_first
+		};
+		db.put(emo, function callback(err, result) {
+			if (!err) {
+				console.log('Successfully posted a todo!');
+			}
+		});
+		marker.getPopup().setContent("<b>Thank you for your contribution!</b>");
+		
+		$("#start-menu").show();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();	
+		
 	});
 	
 	//get current location, we need to use Geolocation
-	curLat = 48.209219;
-	curLng = 16.370821;
+	
 	var locationIcon = L.icon({
-		iconUrl: 'css/lib/images/marker-icon.png'		
+		iconUrl: 'css/lib/images/marker-icon-1.5x.png'		
 	});
-	marker = L.marker([curLat, curLng], {icon: locationIcon, draggable: true}).addTo(map);
-	marker.bindPopup("Drag the marker to correct location").openPopup();	
+	marker = L.marker(curLatLng, {icon: locationIcon, draggable: true}).addTo(map);
+	/*
+		var popup = L.popup().setContent('Drag me to correct location');
+		marker.bindPopup(popup).openPopup();
+	*/
+	marker.bindPopup("Drag the marker to correct location!").openPopup();
+	
 	marker.on('dragend', function(event) {
-		var latlng = event.target.getLatLng();  
-		console.log(latlng);
-		curLat= latlng.lat;
-		curLng = latlng.lng;
+		var latLng = event.target.getLatLng();  
+		curLatLng = [latLng.lat, latLng.lng];
+		console.log(curLatLng);		
 	});	
 	
 	//get level of comfort
@@ -139,16 +209,10 @@ function initialize() {
         conx_first=$(this).val();
 		console.log(conx_first);
 	});
-
+	
 }
 
 
-//show the user' contributions
-function myEmoMap(){		
-	$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
-	$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
-	$("#navbar-my").addClass("ui-btn-active");
-}
 
 //show all contributions
 function allEmoMap(){		
@@ -165,6 +229,20 @@ function Info(){
 	$("#navbar-about").addClass("ui-btn-active");
 }
 
+//visualizing emos using marker cluster
+function vizEmos (map, locations, emos){
+	var markers = L.markerClusterGroup();
+	for (var i = 0; i < emos.length; i++) {
+		var locationIcon = L.icon({
+			iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
+		});
+		
+		var marker_emo = L.marker(locations[i], { icon: locationIcon});
+		marker_emo.mydata=emos[i];
+		markers.addLayer(marker_emo);
+	}
+	map.addLayer(markers);
+}
 
 
 document.addEventListener('deviceready', initialize);

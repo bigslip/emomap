@@ -1,0 +1,66 @@
+.marker-cluster-emo1 {
+	background-color: rgba(247, 49, 40, 0.6);
+	}
+.marker-cluster-emo1 div {
+	background-color: rgba(247, 49, 40, 0.6);
+	}
+
+.marker-cluster-emo2 {
+	background-color: rgba(253, 119, 0, 0.6);
+	}
+.marker-cluster-emo2 div {
+	background-color: rgba(253, 119, 0, 0.6);
+	}
+
+.marker-cluster-emo3 {
+	background-color: rgba(253, 223, 60, 0.6);
+	}
+.marker-cluster-emo3 div {
+	background-color: rgba(253, 223, 60, 0.6);
+	}
+
+.marker-cluster-emo4 {
+	background-color: rgba(180, 180, 180, 0.6);
+	}
+.marker-cluster-emo4 div {
+	background-color: rgba(180, 180, 180, 0.6);
+	}
+	
+.marker-cluster-emo5 {
+	background-color: rgba(214, 239, 138, 0.6);
+	}
+.marker-cluster-emo5 div {
+	background-color: rgba(214, 239, 138, 0.6);
+	}
+
+.marker-cluster-emo6 {
+	background-color: rgba(144, 209, 50, 0.6);
+	}
+.marker-cluster-emo6 div {
+	background-color: rgba(144, 209, 50, 0.6);
+	}	
+
+.marker-cluster-emo7 {
+	background-color: rgba(0, 154, 0, 0.6);
+	}
+.marker-cluster-emo7 div {
+	background-color: rgba(0, 154, 0, 0.6);
+	}	
+
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 20px;
+	}
+.marker-cluster div {
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+
+	text-align: center;
+	border-radius: 15px;
+	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+	}
+.marker-cluster span {
+	line-height: 30px;
+	}

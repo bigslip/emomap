@@ -34,7 +34,9 @@ h1 {
     bottom: 0px;
     margin-right: auto;
     margin-right: auto;
-    width: 70%;
+    xwidth: 80%;
+	right:10%;
+	left: 10%;
     xheight: 300px;
     padding: 10px;
     background-color: rgba(0,0,0,0.4);	
