@@ -16,7 +16,6 @@ body {
     -webkit-user-select: none;                  
 }
 
-
 h1 {
     font-size:24px;
 }
@@ -24,9 +23,14 @@ h1 {
 .tabs {
     height: 100%;
 }
+
+#main-page {
+	display: none;
+}
+
 .map {
     width: 100%;
-    height: 520px;
+    height: 520px;	
 }
 
 #start-menu {
@@ -39,7 +43,7 @@ h1 {
 	left: 10%;
     xheight: 300px;
     padding: 10px;
-    background-color: rgba(0,0,0,0.4);	
+    background-color: rgba(0,0,0,0.4);		
 }
 #start-menu-contribute {
 	color: Blue;

@@ -652,16 +652,18 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		} else {
 			c += '7';
 		}
+		
 		/*
-		var c = ' marker-cluster-';
+		var c = ' marker-cluster-emo';
 		if (childCount < 10) {
-			c += 'small';
+			c += '1';
 		} else if (childCount < 100) {
-			c += 'medium';
+			c += '2';
 		} else {
-			c += 'large';
+			c += '3';
 		}
 		*/
+		
 
 		return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
 	},

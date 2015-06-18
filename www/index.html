@@ -12,11 +12,52 @@
 		<title>EmoMap</title>
 	</head>
 	<body>
+		
 		<div data-role="page" id="page1">
 			<div data-role="header">
 				<h1>EmoMap</h1>
 			</div>
-			<div role="main" class="ui-content">
+			<div id="start-page">	
+			Please answer several questions!
+				<div data-role="main" class="ui-content">
+					<fieldset class="ui-field-contain">
+						<label for="gender">Gender</label>
+						<select name="gender" id="gender">
+							<option value="male">Male</option>
+							<option value="female">Female</option>							
+						</select>
+					</fieldset>
+				</div>
+				<div data-role="main" class="ui-content">
+					<fieldset class="ui-field-contain">
+						<label for="birthyear">Birth year</label>
+						<select name="birthyear" id="birthyear">
+							<option value="1980">1980</option>
+							<option value="1981">1981</option>
+							<option value="1982">1982</option>
+							<option value="1983">1983</option>
+							<option value="1984">1984</option>
+							<option value="1985">1985</option>
+							<option value="1986">1986</option>
+						</select>
+					</fieldset>
+				</div>
+				<div data-role="main" class="ui-content">
+					<fieldset class="ui-field-contain">
+						<label for="workstatus">Work Status</label>
+						<select name="workstatus" id="workstatus">
+							<option value="employed">Employed</option>
+							<option value="student">Full-time education</option>
+							<option value="unemployed">Unemployed and seeking work</option>
+							<option value="retired">Retried</option>
+							<option value="other">Other</option>
+						</select>
+					</fieldset>
+				</div>
+				<p>by clicking "Submit", you accept terms and conditions.</p>				
+				<a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c">Register</a>
+			</div>
+			<div role="main" class="ui-content" id="main-page">
 				<div data-role="tabs" class="tabs">
 					<div data-role="navbar">
 						<ul>
@@ -79,7 +120,7 @@
 							        <label for="checkbox-h-2b">with adult(s)</label>
 							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2c" id="checkbox-h-2c" value="with_children">
 							        <label for="checkbox-h-2c">with child(ren)</label>
-									<input type="checkbox" class="checkbox-with" name="checkbox-h-2d" id="checkbox-h-2d" value="with_dogs">
+							<input type="checkbox" class="checkbox-with" name="checkbox-h-2d" id="checkbox-h-2d" value="with_dogs">
 							        <label for="checkbox-h-2d">with dog(s)</label>
 						</fieldset>						
 						<fieldset data-role="controlgroup" data-type="horizontal">							
@@ -102,12 +143,13 @@
 			</div>
 		</div>
 		
-		<script type="text/javascript" src="cordova.mock.js"></script>		
+		<script type="text/javascript" src="cordova.js"></script>		
 		<script type="text/javascript" src="js/lib/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.js"></script>
-		<script type="text/javascript" src="js/lib/leaflet-src.js"></script>
+		<script type="text/javascript" src="js/lib/leaflet.js"></script>
 		<script type="text/javascript" src="js/lib/leaflet.markercluster-src.js"></script>
 		<script type="text/javascript" src="js/lib/pouchdb.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<script src="data.js"></script>
 	</body>
 </html>
