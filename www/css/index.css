@@ -124,9 +124,10 @@ h1 {
 	display: none;
 }
 #checkbox-conx-label {
-	color: blue;
-	font-family: verdana;
-	font-size:20px;
+	color: white;
+    text-shadow: none;
+	font-size: 20px;
+    font-weight: bold;
 }
 #conx_next {	
 	position: absolute;
