@@ -1,15 +1,15 @@
 function initialize() {   
 	
 	//initial values
-	var curLatLng = [48.209219,16.370821];
-	//var curLatLng = [48.191472, 16.269066];
-	var curLatLngAccuracy=0;
-	var curHeading = 0;
-	var level_of_comfort=4;
-	var adj="";
-	var conx_with="alone";
-	var conx_first="first_time";
-	var marker;
+	var curLatLng = [48.209219,16.370821],
+        //curLatLng = [48.191472, 16.269066],
+        curLatLngAccuracy = 0,
+        curHeading = 0,
+        level_of_comfort = 4,
+        adj = "",
+        conx_with = "alone",
+        conx_first = "first_time",
+        marker;
 	
 	if (navigator.notification) { // Override default HTML alert with native dialog
 		window.alert = function (message) {
@@ -24,34 +24,35 @@ function initialize() {
 	
 	
 	//device information, network status, gps location
-	var uuid= device.uuid;
+	var uuid = device.uuid;
 	var networkState = navigator.connection.type;
 	
 	//need to check GPS is enabled or not
 	navigator.geolocation.getCurrentPosition(
-	function(position) {
-		//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
-		curLatLng = [position.coords.latitude, position.coords.longitude];
-		curLatLngAccuracy = position.coords.accuracy;
-		map.panTo(curLatLng);
-		marker.setLatLng (curLatLng);					
-	},
-	function(error) {
-		alert('code: '    + error.code    + '\n' +
-		'message: ' + error.message + '\n');
-	},
-	{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
+        function(position) {
+            //curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
+            curLatLng = [position.coords.latitude, position.coords.longitude];
+            curLatLngAccuracy = position.coords.accuracy;
+            map.panTo(curLatLng);
+            marker.setLatLng (curLatLng);					
+        },
+        function(error) {
+            alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+        },
+        {maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 	);
 	
 	navigator.compass.getCurrentHeading(
-	function(heading) {
-		//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
-		curHeading = heading.magneticHeading;						
-	},
-	function(error) {
-		alert('code: '    + error.code    + '\n' +
-		'message: ' + error.message + '\n');
-	});
+        function(heading) {
+            //curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
+            curHeading = heading.magneticHeading;						
+        },
+        function(error) {
+            alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+        }
+    );
 	
 	
 	
@@ -64,7 +65,7 @@ function initialize() {
 	db.changes({
 		since: 'now',
 		live: true
-		}).on('change', function(change) {
+	}).on('change', function(change) {
 		// handle change
 	});
 	
@@ -150,26 +151,34 @@ function initialize() {
 	});	
 	/*
 	L.tileLayer('tiles/{z}/{x}/{y}.png', {
-		//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 	*/	
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		
-		//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 	
-	
+	function EmoIcon(emo) {
+        function getEmoImage(emo) {
+            if (emo === null || emo === undefined) {
+                return 'img/emo_empty.png'
+            }
+            return 'img/emo_' + emo + '.png'
+        }
+        var icon = L.divIcon({
+            className: 'emoMarker',
+            iconSize: [129, 157],
+            iconAnchor: [64, 157],
+            popupAnchor: [0, -157],
+            html: '<img style="position:absolute; top:0; left:0; width:129px;" src="img/locationmarker.png">' +
+                  '<img style="position:absolute; top:6px; left:6px;" src="' + getEmoImage(emo) + '">'
+        });
+        return icon;
+    }
+    
 	//add a marker to identify the map center
-	var locationIcon = L.icon({
-		iconUrl: 'css/lib/images/marker-icon.png',		
-		shadowUrl: 'css/lib/images/marker-shadow.png',
-		iconSize:     [25, 41], // size of the icon
-		shadowSize:   [41, 41], // size of the shadow
-		iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-		shadowAnchor: [10, 41],  // the same for the shadow
-		popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
-	});
-	marker = L.marker(curLatLng, {icon: locationIcon, draggable: true}).addTo(map);	
+	var locationIcon = EmoIcon();
+	marker = L.marker(curLatLng, {icon: EmoIcon(), draggable: true}).addTo(map);	
 	
 	//marker = L.marker([48.191472, 16.269066],{draggable: true}).addTo(map);
 	marker.on('dragend', function(event) {
@@ -200,7 +209,7 @@ function initialize() {
 			curLatLngAccuracy = position.coords.accuracy;			
 			map.panTo(curLatLng);
 			marker.setLatLng (curLatLng);
-			marker.bindPopup("Drag the marker to correct location!").openPopup();				
+			marker.bindPopup("Correct location? You can drag the marker to adjust its position!").openPopup();				
 		},
 		function(error) {
 			alert('code: '    + error.code    + '\n' +
@@ -431,6 +440,8 @@ function initialize() {
 	$("#slider1").bind("slidestop", function () {  			
 		level_of_comfort = $("#slider1").val();
 		console.log(level_of_comfort);
+        //locationIcon.setEmo(level_of_comfort);
+        marker.setIcon(EmoIcon(level_of_comfort-4));
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
 	});
 	
