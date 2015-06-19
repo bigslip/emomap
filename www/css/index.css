@@ -43,16 +43,14 @@ h1 {
 	left: 10%;
     xheight: 300px;
     padding: 10px;
-    background-color: rgba(0,0,0,0.4);		
+    background-color: rgba(0,0,0,0.4);
+    text-shadow: none;
 }
 #start-menu-contribute {
-	color: Blue;
-	font-family: verdana;
 	font-size:20px;
 }
 #start-menu-my, #start-menu-all, #start-menu-about {
 	color: red;
-	font-family: verdana;
 	font-size:15px;
 }
 
