@@ -14,17 +14,15 @@
 	<body>
 		
 		<div data-role="page" id="page1">
-			<div data-role="header">
-				<h1>EmoMap</h1>
-			</div>
 			<div id="start-page">	
-			Please answer a few questions to take part!
+			Welcome to EmoMap! Please answer a few questions to take part.
 				<div data-role="main" class="ui-content">
 					<fieldset class="ui-field-contain">
 						<label for="gender">Gender</label>
 						<select name="gender" id="gender">
 							<option value="male">Male</option>
 							<option value="female">Female</option>							
+							<option value="undefined">Prefer not to say</option>							
 						</select>
 					</fieldset>
 				</div>
@@ -54,7 +52,7 @@
 							<option value="employed">Employed</option>
 							<option value="student">Full-time education</option>
 							<option value="unemployed">Unemployed and seeking work</option>
-							<option value="retired">Retried</option>
+							<option value="retired">Retired</option>
 							<option value="other">Other</option>
 						</select>
 					</fieldset>
@@ -66,9 +64,9 @@
 				<div data-role="tabs" class="tabs">
 					<div data-role="navbar">
 						<ul>
-							<li><a id="navbar-start" class="ui-btn-active">Home</a></li>
-							<li><a id="navbar-my">My EmoMap</a></li>
-							<li><a id="navbar-all">All EmoMap</a></li>
+							<li><a id="navbar-start" class="ui-btn-active">Add</a></li>
+							<li><a id="navbar-my">My Map</a></li>
+							<li><a id="navbar-all">All</a></li>
 							<li><a id="navbar-about">Info</a></li>
 						</div>
 					</ul>
@@ -76,10 +74,19 @@
 					<div class="map" id="map"></div>
 					
 					<div id="start-menu">
-						<p id="start-menu-contribute">How do you like this place?</p>
-						<p id="start-menu-my">My EmoMap</p>
-						<p id="start-menu-all">All EmoMap</p>
-						<p id="start-menu-about">About</p>
+						<a id="start-menu-contribute"
+                            data-role="button"
+                            data-icon="plus"
+                            data-iconpos="right"
+                            xdata-inline="true"
+                            data-theme="c">How do you like this place?</a>
+                        <a id="button-refresh"
+                            data-role="button"
+                            data-icon="refresh"
+                            data-iconpos="right"
+                            xdata-inline="true"
+                            data-mini="true"
+                            data-theme="c">Refresh location from GPS</a>
 					</div>
 					
 					<div id="slider-comfort">
