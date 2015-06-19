@@ -24,7 +24,7 @@ h1 {
     height: 100%;
 }
 
-#main-page {
+#start-page,#main-page {
 	display: none;
 }
 
@@ -136,14 +136,12 @@ h1 {
 }
 
 #info {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 70%;
-    xheight: 100px;
-    padding: 10px;
-    background-color: rgba(0,0,0,0.4);
 	display: none;
+}
+#text_about {
+	color: blue;
+	font-family: verdana;
+	font-size:12px;	
 }
 
 

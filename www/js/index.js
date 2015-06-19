@@ -97,7 +97,7 @@ function initialize() {
 		gender = $(this).val();
 		console.log(gender);				
 	});
-	var birthyear="1980";
+	var birthyear="1951";
 	$("#birthyear").bind( "change", function() {
 		birthyear = $(this).val();
 		console.log(birthyear);				
@@ -132,6 +132,7 @@ function initialize() {
 		
 		$("#start-page").hide();
 		$("#main-page").show();
+		map._onResize(); 
 	});
 	
 	
@@ -229,6 +230,7 @@ function initialize() {
 	$("#start-menu-my, #navbar-my").click(function(){
 		
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#map").show();
 		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-my").addClass("ui-btn-active");			
 		
@@ -291,6 +293,7 @@ function initialize() {
 		}	
 		
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#map").show();
 		$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-all").addClass("ui-btn-active");	
 		
@@ -329,8 +332,8 @@ function initialize() {
 	
 	//information about emomap
 	$("#start-menu-about,#navbar-about").click(function(){
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx").hide();
-		$("#info").show();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx, #map").hide();
+		$("#info").show();		
 		$("#navbar-start,#navbar-my,#navbar-all").removeClass("ui-btn-active");
 		$("#navbar-about").addClass("ui-btn-active");
 		
@@ -345,7 +348,7 @@ function initialize() {
 	
 	$("#navbar-start").click(function(){
 		//start the main page
-		$("#start-menu").show();
+		$("#start-menu, #map").show();
 		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
 		$("#navbar-start").addClass("ui-btn-active");
 		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
