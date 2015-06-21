@@ -43,7 +43,7 @@ var ln =
                 ln.language.international = ln.nativeLanguageNameToEnglishName(lang.value);
 				
 				if(ln.language.code=="en"){
-					//do nothing
+					//do nothing: no translation needed.
 					return;
 				}
 
@@ -57,8 +57,8 @@ var ln =
             function(error)
             {
                 console.log(error);
-
-                alert(i18n.t('messages.error'));
+				//error in getting language, set to English: no translation needed.
+                //alert(i18n.t('messages.error'));
             }
         );
     },
