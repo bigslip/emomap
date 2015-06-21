@@ -1,5 +1,7 @@
 function initialize() {   
 	
+	ln.init();//set page language according to the device language
+	
 	//initial values
 	var curLatLng = [48.209219,16.370821],
         //curLatLng = [48.191472, 16.269066],
@@ -22,7 +24,20 @@ function initialize() {
 		};
 	}
 	
-	
+	/*
+	//check whether GPS is on?
+	cordova.plugins.diagnostic.isLocationEnabled(
+				function(e){
+					if(!e){
+						alert("please enable your location!");
+						cordova.plugins.diagnostic.switchToLocationSettings();
+					}
+				},
+				function(e){
+					alert('Error '+e);
+				}
+				);
+	*/
 	//device information, network status, gps location
 	var uuid = device.uuid;
 	var networkState = navigator.connection.type;
@@ -37,8 +52,8 @@ function initialize() {
             marker.setLatLng (curLatLng);					
         },
         function(error) {
-            alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
+            //alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+			//alert('Can not get your current location!');
         },
         {maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 	);
@@ -49,8 +64,7 @@ function initialize() {
             curHeading = heading.magneticHeading;						
         },
         function(error) {
-            alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
+            //alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
         }
     );
 	
@@ -129,7 +143,8 @@ function initialize() {
 		
 		//set isLaunch as true
 		window.localStorage.setItem('isLaunch',true);
-		alert("Thank you! Now you start to create your emotional map!");
+		//alert("Thank you! Now you start to create your emotional map!");
+		alert(i18n.t('messages.registration-success'));
 		
 		$("#start-page").hide();
 		$("#main-page").show();
@@ -209,11 +224,11 @@ function initialize() {
 			curLatLngAccuracy = position.coords.accuracy;			
 			map.panTo(curLatLng);
 			marker.setLatLng (curLatLng);
-			marker.bindPopup("Correct location? You can drag the marker to adjust its position!").openPopup();				
+			//marker.bindPopup("Correct location? You can drag the marker to adjust its position!").openPopup();
+			marker.bindPopup(i18n.t('messages.marker-popup')).openPopup();
 		},
 		function(error) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+			//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
@@ -223,8 +238,7 @@ function initialize() {
 			curHeading = heading.magneticHeading;						
 		},
 		function(error) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+			//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 		});		
 		
 		//set all initial values		
@@ -260,8 +274,9 @@ function initialize() {
 			//marker.openPopup();				
 		},
 		function(error) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+			//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+			//alert('Can not get your current location!');
+			alert(i18n.t('messages.geolocation-error'));
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
@@ -292,7 +307,8 @@ function initialize() {
 		}
 		
 		if (networkState == Connection.NONE){
-			alert("The EmoMap can not be shown due to no Internet Connection!");
+			//alert("The EmoMap can not be shown due to no Internet Connection!");
+			alert(i18n.t('messages.allemomap-nointernet'));
 			//start the main page
 			$("#start-menu").show();
 			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
@@ -318,8 +334,8 @@ function initialize() {
 			//marker.openPopup();				
 		},
 		function(error) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+			//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			alert(i18n.t('messages.geolocation-error'));
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
@@ -428,7 +444,8 @@ function initialize() {
 		});
 		//marker.getPopup().setContent("<b>Thank you for your contribution!</b>");
 		marker.closePopup();
-		alert("Thank you for your contribution!");
+		//alert("Thank you for your contribution!");
+		alert(i18n.t('messages.contribution-success'));
 		
 		$("#start-menu").show();
 		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();			
@@ -453,7 +470,7 @@ function initialize() {
 	});
 	
 	//get context (with whom)
-	$(".checkbox-with").bind( "change", function() {
+	$(".xcheckbox-with").bind( "change", function() {
 		var click_alone=$(this).prop("value").includes("alone");			
 		if(click_alone){
 			$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
@@ -463,7 +480,7 @@ function initialize() {
 			$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh");
 		}
 		
-		conx_with= $(".checkbox-with:checked").map(function () {return this.value;}).get().join(",");
+		conx_with= $(".xcheckbox-with:checked").map(function () {return this.value;}).get().join(",");
 		
 		console.log(conx_with);
 	});

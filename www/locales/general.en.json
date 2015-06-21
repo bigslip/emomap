@@ -1,0 +1,57 @@
+{
+    "buttons":
+    {
+        "contribute": "How do you like this place?",
+		"cancel": "Cancel",
+		"next": "Next",
+		"back": "Back",
+		"submit": "Submit"
+    },
+    "comfort":
+    {
+        "label": "This place is:",
+        "uncomfortable": "uncomfortable",
+		"comfortable": "comfortable"
+    },
+	"adjective":
+    {
+        "label": "This place is:",
+        "Active": "Active",
+		"Beautiful": "Beautiful",
+		"Boring": "Boring",
+        "Comfortable": "Comfortable",
+		"Desolate": "Desolate",
+		"Disgusting": "Disgusting",
+        "Enjoyable": "Enjoyable",
+		"Exciting": "Exciting",
+		"Frightening": "Frightening",
+        "Frustrating": "Frustrating",
+		"Hectic": "Hectic",
+		"Majestic": "Majestic",
+        "Peaceful": "Peaceful",
+		"Sleepy": "Sleepy"
+    },
+	"context":
+    {
+        "label": "I'm here ...",
+        "alone": "alone",
+		"adult": "with adult(s)",
+		"child": "with child(ren)",
+		"dog": "with dog(s)",
+		"firsttime": "for the first time",
+		"moreoften": "more often"
+    },
+	"info":
+    {
+        "header": "About EmoMap",
+        "content": "..."
+    },
+	"messages":
+    {
+        "geolocation-error": "Can not get your current location!",
+        "registration-success": "Thank you! Now you start to create your emotional map!",
+		"marker-popup": "Correct location? You can drag the marker to adjust its position!",
+		"contribution-success": "Thank you for your contribution!",
+		"allemomap-nointernet": "The EmoMap can not be shown due to no Internet Connection!"
+    }
+}

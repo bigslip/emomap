@@ -79,7 +79,8 @@
                             data-icon="plus"
                             data-iconpos="right"
                             xdata-inline="true"
-                            data-theme="c">How do you like this place?</a>
+                            data-theme="c"
+							data-i18n="buttons.contribute">How do you like this place?</a>
                         <a id="button-refresh"
                             data-role="button"
                             data-icon="refresh"
@@ -90,65 +91,65 @@
 					</div>
 					
 					<div id="slider-comfort">
-						<span id="slider-comfort-label">This place is:</span>
+						<span id="slider-comfort-label" data-i18n="comfort.label">This place is:</span>
 						<input type="range" name="slider1" id="slider1" value="4" min="1" max="7"/>	
-						<span id="slider-comfort-label-1">uncomfortable</span>						
-						<span id="slider-comfort-label-7">comfortable</span>
+						<span id="slider-comfort-label-1" data-i18n="comfort.uncomfortable">uncomfortable</span>						
+						<span id="slider-comfort-label-7" data-i18n="comfort.comfortable">comfortable</span>
 						
-						<a id="comfort_cancel" data-role="button" data-icon="home" data-iconpos="left" data-inline="true" data-theme="c">Cancel</a>
-						<a id="comfort_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c">Next</a>
+						<a id="comfort_cancel" data-role="button" data-icon="home" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.cancel">Cancel</a>
+						<a id="comfort_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.next">Next</a>
 					</div>
 					
 					<div id="checkbox-adj">
 						<fieldset>
-							<label for="adj" id= "adj-label" >This place is:</label>
+							<label for="adj" id= "adj-label" data-i18n="adjective.label">This place is:</label>
 							<select name="adj" id="adj" multiple="multiple" data-native-menu="false">
-								<option value="Active">Active</option>
-								<option value="Beautiful">Beautiful</option>
-								<option value="Boring">Boring</option>
-								<option value="Comfortable">Comfortable</option>
-								<option value="Desolate">Desolate</option>
-								<option value="Disgusting">Disgusting</option>
-								<option value="Enjoyable">Enjoyable</option>
-								<option value="Exciting">Exciting</option>
-								<option value="Frightening">Frightening</option>
-								<option value="Frustrating">Frustrating</option>
-								<option value="Hectic">Hectic</option>
-								<option value="Majestic">Majestic</option>
-								<option value="Peaceful">Peaceful</option>
-								<option value="Sleepy">Sleepy</option>
+								<option value="Active" data-i18n="adjective.Active">Active</option>
+								<option value="Beautiful" data-i18n="adjective.Beautiful">Beautiful</option>
+								<option value="Boring" data-i18n="adjective.Boring">Boring</option>
+								<option value="Comfortable" data-i18n="adjective.Comfortable">Comfortable</option>
+								<option value="Desolate" data-i18n="adjective.Desolate">Desolate</option>
+								<option value="Disgusting" data-i18n="adjective.Disgusting">Disgusting</option>
+								<option value="Enjoyable" data-i18n="adjective.Enjoyable">Enjoyable</option>
+								<option value="Exciting" data-i18n="adjective.Exciting">Exciting</option>
+								<option value="Frightening" data-i18n="adjective.Frightening">Frightening</option>
+								<option value="Frustrating" data-i18n="adjective.Frustrating">Frustrating</option>
+								<option value="Hectic" data-i18n="adjective.Hectic">Hectic</option>
+								<option value="Majestic" data-i18n="adjective.Majestic">Majestic</option>
+								<option value="Peaceful" data-i18n="adjective.Peaceful">Peaceful</option>
+								<option value="Sleepy" data-i18n="adjective.Sleepy">Sleepy</option>
 							</select>
 						</fieldset>						
-						<a id="adj_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c">Back</a>
-						<a id="adj_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c">Next</a>
+						<a id="adj_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.back">Back</a>
+						<a id="adj_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.next">Next</a>
 					</div>
 					
 					<div id="checkbox-conx">
-						<fieldset data-role="controlgroup" data-type="horizontal">
-							        <legend id="checkbox-conx-label">I'm here ...</legend>
-							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2a" id="checkbox-h-2a" value="alone" checked>
-							        <label for="checkbox-h-2a">alone</label>
-							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2b" id="checkbox-h-2b" value="with_adults">
-							        <label for="checkbox-h-2b">with adult(s)</label>
-							        <input type="checkbox" class="checkbox-with" name="checkbox-h-2c" id="checkbox-h-2c" value="with_children">
-							        <label for="checkbox-h-2c">with child(ren)</label>
-							<input type="checkbox" class="checkbox-with" name="checkbox-h-2d" id="checkbox-h-2d" value="with_dogs">
-							        <label for="checkbox-h-2d">with dog(s)</label>
+						 <fieldset data-role="controlgroup" data-type="xhorizontal">
+									<legend id="checkbox-conx-label" data-i18n="context.label">I'm here ...</legend>
+									<input type="checkbox" class="xcheckbox-with" name="checkbox-h-2a" id="checkbox-h-2a" value="alone" checked>
+									<label for="checkbox-h-2a" data-i18n="context.alone">alone</label>
+									<input type="checkbox" class="xcheckbox-with" name="checkbox-h-2b" id="checkbox-h-2b" value="with_adults">
+									<label for="checkbox-h-2b" data-i18n="context.adult">with adult(s)</label>
+									<input type="checkbox" class="xcheckbox-with" name="checkbox-h-2c" id="checkbox-h-2c" value="with_children">
+									<label for="checkbox-h-2c" data-i18n="context.child">with child(ren)</label>
+									<input type="checkbox" class="xcheckbox-with" name="checkbox-h-2d" id="checkbox-h-2d" value="with_dogs">
+									<label for="checkbox-h-2d" data-i18n="context.dog">with dog(s)</label>
 						</fieldset>						
-						<fieldset data-role="controlgroup" data-type="horizontal">							
+						<fieldset data-role="controlgroup" data-type="xhorizontal">							
 							<input type="radio" name="radio-choice-2" id="radio-choice-21" value="first_time" checked="checked" />
-							<label for="radio-choice-21">for the first time</label>							
+							<label for="radio-choice-21" data-i18n="context.firsttime">for the first time</label>							
 							<input type="radio" name="radio-choice-2" id="radio-choice-22" value="more_often"  />
-							<label for="radio-choice-22">more often</label>				
+							<label for="radio-choice-22" data-i18n="context.moreoften">more often</label>				
 						</fieldset>					
-						<a id="conx_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c">Back</a>
-						<a id="conx_next" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c">Submit</a>
+						<a id="conx_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.back">Back</a>
+						<a id="conx_next" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.submit">Submit</a>
 					</div>
 					
 					
 					<div id="info">
-						<h2>About EmoMap</h2>
-						<p id="text_about">EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
+						<h2 data-i18n="info.header">About EmoMap</h2>
+						<p id="text_about" data-i18n="info.content">EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
 							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
 							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
 							visit cartography.tuwien.ac.at.
@@ -165,6 +166,8 @@
 		<script type="text/javascript" src="js/lib/leaflet.js"></script>
 		<script type="text/javascript" src="js/lib/leaflet.markercluster-src.js"></script>
 		<script type="text/javascript" src="js/lib/pouchdb.min.js"></script>
+		<script type="text/javascript" src="js/lib/i18next.min.js"></script>
+		<script type="text/javascript" src="js/lib/ln.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 	</body>
 </html>

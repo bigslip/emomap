@@ -1,1 +1,1 @@
-http://plugins.cordova.io/#/package/de.fastr.phonegap.plugins.checkgps
+http://www.oodlestechnologies.com/blogs/Implementing-i18n-(internationalization)-in-PhoneGap-or-Cordova-Application

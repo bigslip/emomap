@@ -1,0 +1,57 @@
+{
+    "buttons":
+    {
+        "contribute": "你喜欢这个地方吗？",
+		"cancel": "取消",
+		"next": "下一步",
+		"back": "后退",
+		"submit": "提交"
+    },
+    "comfort":
+    {
+        "label": "这个地方是",
+        "uncomfortable": "令人不愉快的",
+		"comfortable": "令人愉快的"
+    },
+	"adjective":
+    {
+        "label": "这个地方是",
+        "Active": "Active",
+		"Beautiful": "漂亮",
+		"Boring": "枯燥",
+        "Comfortable": "Comfortable",
+		"Desolate": "Desolate",
+		"Disgusting": "Disgusting",
+        "Enjoyable": "Enjoyable",
+		"Exciting": "Exciting",
+		"Frightening": "Frightening",
+        "Frustrating": "Frustrating",
+		"Hectic": "Hectic",
+		"Majestic": "Majestic",
+        "Peaceful": "Peaceful",
+		"Sleepy": "Sleepy"
+    },
+	"context":
+    {
+        "label": "我在这里...",
+        "alone": "单独",
+		"adult": "和其他人",
+		"child": "和小孩子",
+		"dog": "带狗",
+		"firsttime": "第一次来",
+		"moreoften": "经常来"
+    },
+	"info":
+    {
+        "header": "关于EmoMap",
+        "content": "..."
+    },
+	"messages":
+    {
+        "geolocation-error": "没有位置信息",
+        "registration-success": "谢谢您的注册。现在您可以开始创建您的情感地图了！",
+		"marker-popup": "不是您当前位置? 您可以拖动图标调整位置",
+		"contribution-success": "谢谢您。",
+		"allemomap-nointernet": "对不起，由于没有网络连接，这个功能已被家用！"
+    }
+}
