@@ -52,6 +52,8 @@
         "registration-success": "谢谢您的注册。现在您可以开始创建您的情感地图了！",
 		"marker-popup": "不是您当前位置? 您可以拖动图标调整位置",
 		"contribution-success": "谢谢您。",
-		"allemomap-nointernet": "对不起，由于没有网络连接，这个功能已被家用！"
+		"allemomap-nointernet": "对不起，由于没有网络连接，这个功能已被禁用！",
+		"location-enable": "请开启位置服务!",
+		"ok": "好"
     }
 }

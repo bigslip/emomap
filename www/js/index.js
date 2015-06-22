@@ -4,14 +4,14 @@ function initialize() {
 	
 	//initial values
 	var curLatLng = [48.209219,16.370821],
-        //curLatLng = [48.191472, 16.269066],
-        curLatLngAccuracy = 0,
-        curHeading = 0,
-        level_of_comfort = 4,
-        adj = "",
-        conx_with = "alone",
-        conx_first = "first_time",
-        marker;
+	//curLatLng = [48.191472, 16.269066],
+	curLatLngAccuracy = 0,
+	curHeading = 0,
+	level_of_comfort = 4,
+	adj = "",
+	conx_with = "alone",
+	conx_first = "first_time",
+	marker;
 	
 	if (navigator.notification) { // Override default HTML alert with native dialog
 		window.alert = function (message) {
@@ -24,48 +24,64 @@ function initialize() {
 		};
 	}
 	
-	/*
+	
 	//check whether GPS is on?
 	cordova.plugins.diagnostic.isLocationEnabled(
-				function(e){
-					if(!e){
-						alert("please enable your location!");
-						cordova.plugins.diagnostic.switchToLocationSettings();
-					}
-				},
-				function(e){
-					alert('Error '+e);
-				}
-				);
-	*/
+	function(e){
+		if(!e){
+			navigator.notification.alert(i18n.t('messages.location-enable'), alertDismissed_gpsSetting1, "EmoMap", i18n.t('messages.ok'));
+			function alertDismissed_gpsSetting1() {
+            	cordova.plugins.diagnostic.switchToLocationSettings();
+			}			
+		}
+	},
+	function(e){
+		//alert('Error '+e);
+		navigator.notification.alert(i18n.t('messages.location-enable'), alertDismissed_gpsSetting2, "EmoMap", i18n.t('messages.ok'));
+		function alertDismissed_gpsSetting2() {
+			cordova.plugins.diagnostic.switchToLocationSettings();
+		}
+	}
+	);
+	
 	//device information, network status, gps location
 	var uuid = device.uuid;
 	var networkState = navigator.connection.type;
+	document.addEventListener("offline", onOffline, false);
+	function onOffline() {
+		// Handle the offline event
+		networkState = navigator.connection.type;
+	}
+	document.addEventListener("online", onOnline, false);
+	function onOnline() {
+		// Handle the online event
+		networkState = navigator.connection.type;
+	}
 	
 	//need to check GPS is enabled or not
 	navigator.geolocation.getCurrentPosition(
-        function(position) {
-            //curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
-            curLatLng = [position.coords.latitude, position.coords.longitude];
-            curLatLngAccuracy = position.coords.accuracy;
-            map.panTo(curLatLng);
-            marker.setLatLng (curLatLng);					
-        },
-        function(error) {
-            //alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
-			//alert('Can not get your current location!');
-        },
-        {maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
+	function(position) {
+		//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
+		curLatLng = [position.coords.latitude, position.coords.longitude];
+		curLatLngAccuracy = position.coords.accuracy;
+		map.panTo(curLatLng);
+		marker.setLatLng (curLatLng);					
+	},
+	function(error) {
+		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+		//alert('Can not get your current location!');
+	},
+	{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 	);
 	
 	navigator.compass.getCurrentHeading(
-        function(heading) {
-            //curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
-            curHeading = heading.magneticHeading;						
-        },
-        function(error) {
-            //alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
-        }
+	function(heading) {
+		//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
+		curHeading = heading.magneticHeading;						
+	},
+	function(error) {
+		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+	}
     );
 	
 	
@@ -79,7 +95,7 @@ function initialize() {
 	db.changes({
 		since: 'now',
 		live: true
-	}).on('change', function(change) {
+		}).on('change', function(change) {
 		// handle change
 	});
 	
@@ -144,11 +160,13 @@ function initialize() {
 		//set isLaunch as true
 		window.localStorage.setItem('isLaunch',true);
 		//alert("Thank you! Now you start to create your emotional map!");
-		alert(i18n.t('messages.registration-success'));
-		
-		$("#start-page").hide();
-		$("#main-page").show();
-		map._onResize(); 
+		//alert(i18n.t('messages.registration-success'));
+		navigator.notification.alert(i18n.t('messages.registration-success'), alertDismissed_registrationSuccess, "EmoMap", i18n.t('messages.ok'));
+		function alertDismissed_registrationSuccess() {
+			$("#start-page").hide();
+			$("#main-page").show();
+			map._onResize();
+		}		 
 	});
 	
 	
@@ -160,36 +178,38 @@ function initialize() {
 	*/
 	var map = L.map('map', {
 		center: curLatLng,
-		zoom: 16,
-		minZoom: 12,
-		maxZoom: 16,
+		zoom: 16
 	});	
-	/*
-	L.tileLayer('tiles/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-	*/	
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
+	if (networkState == Connection.NONE){	
+		L.tileLayer('tiles/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+			minZoom:12,
+			maxZoom:16
+		}).addTo(map);
+	}
+	else{
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'			
+		}).addTo(map);
+	}
 	
 	function EmoIcon(emo) {
         function getEmoImage(emo) {
             if (emo === null || emo === undefined) {
                 return 'img/emo_empty.png'
-            }
-            return 'img/emo_' + emo + '.png'
-        }
-        var icon = L.divIcon({
+			}
+			return 'img/emo_' + emo + '.png'
+		}
+		var icon = L.divIcon({
             className: 'emoMarker',
             iconSize: [129, 157],
             iconAnchor: [64, 157],
             popupAnchor: [0, -157],
             html: '<img style="position:absolute; top:0; left:0; width:129px;" src="img/locationmarker.png">' +
-                  '<img style="position:absolute; top:6px; left:6px;" src="' + getEmoImage(emo) + '">'
-        });
+			'<img style="position:absolute; top:6px; left:6px;" src="' + getEmoImage(emo) + '">'
+		});
         return icon;
-    }
+	}
     
 	//add a marker to identify the map center
 	var locationIcon = EmoIcon();
@@ -276,7 +296,7 @@ function initialize() {
 		function(error) {
 			//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 			//alert('Can not get your current location!');
-			alert(i18n.t('messages.geolocation-error'));
+			alert(i18n.t('messages.geolocation-error'));			
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
@@ -397,6 +417,7 @@ function initialize() {
 		//go to adj page
 		$("#start-menu,#slider-comfort,#checkbox-conx,#info").hide();
 		$("#checkbox-adj").show();
+		
 		if(adj=="")
 		$("#adj_next").addClass("ui-disabled");//disable "next"
 	});
@@ -445,10 +466,12 @@ function initialize() {
 		//marker.getPopup().setContent("<b>Thank you for your contribution!</b>");
 		marker.closePopup();
 		//alert("Thank you for your contribution!");
-		alert(i18n.t('messages.contribution-success'));
-		
-		$("#start-menu").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();			
+		//alert(i18n.t('messages.contribution-success'));
+		navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "EmoMap", i18n.t('messages.ok'));
+		function alertDismissed_contributionSuccess() {
+			$("#start-menu").show();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();	
+		}				
 	});
 	
 	
@@ -465,19 +488,24 @@ function initialize() {
 	//get adjectives
 	$("#adj").bind( "change", function() {
 		adj = $(this).val();
-		console.log(adj);		
-		$("#adj_next").removeClass("ui-disabled");//enable "next"
+		console.log(adj);	
+		if((adj==null)||(adj==""))
+		$("#adj_next").addClass("ui-disabled");//disable "next"
+		else
+		$("#adj_next").removeClass("ui-disabled");//enable "next"		
 	});
 	
 	//get context (with whom)
 	$(".xcheckbox-with").bind( "change", function() {
-		var click_alone=$(this).prop("value").includes("alone");			
-		if(click_alone){
+		//alert($(this).val());
+		//var click_alone=$(this).attr("value").includes("alone");		
+		var click_alone=$(this).val().search("alone");
+		if(click_alone!=-1){
 			$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
 			$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").attr("checked",false).checkboxradio("refresh");
 		}
-		else{
-			$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh");
+		else{			
+			$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh",true);
 		}
 		
 		conx_with= $(".xcheckbox-with:checked").map(function () {return this.value;}).get().join(",");

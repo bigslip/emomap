@@ -52,6 +52,8 @@
         "registration-success": "Thank you! Now you start to create your emotional map!",
 		"marker-popup": "Correct location? You can drag the marker to adjust its position!",
 		"contribution-success": "Thank you for your contribution!",
-		"allemomap-nointernet": "The EmoMap can not be shown due to no Internet Connection!"
+		"allemomap-nointernet": "The EmoMap can not be shown due to no Internet Connection!",
+		"location-enable": "Please enable your location services!请开启位置服务",
+		"ok": "OK"
     }
 }
