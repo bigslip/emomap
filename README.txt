@@ -18,4 +18,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
 
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git
+cordova plugin add cordova-plugin-globalization
+cordova plugin add cordova-plugin-diagnostic
+cordova plugin add org.apache.cordova.dialogs
 ´´´
