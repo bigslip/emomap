@@ -15,8 +15,8 @@
 		
 		<div data-role="page" id="page1">
 			<div id="start-page">	
-			Welcome to EmoMap! Please answer a few questions to take part.
 				<div data-role="main" class="ui-content">
+                    <label>Welcome to EmoMap! Please answer a few questions to take part.</label>
 					<fieldset class="ui-field-contain">
 						<label for="gender">Gender</label>
 						<select name="gender" id="gender">
@@ -56,9 +56,10 @@
 							<option value="other">Other</option>
 						</select>
 					</fieldset>
+                    <label>by clicking "Submit", you accept <a href="#">terms and conditions</a>.</label>	
+                    <a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c">Register</a>
 				</div>
-				<p>by clicking "Submit", you accept terms and conditions.</p>				
-				<a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c">Register</a>
+					
 			</div>
 			<div role="main" class="ui-content" id="main-page">
 				<div data-role="tabs" class="tabs">
@@ -73,7 +74,7 @@
 					
 					<div class="map" id="map"></div>
 					
-					<div id="start-menu">
+					<div id="start-menu" class="bottompanel">
 						<a id="start-menu-contribute"
                             data-role="button"
                             data-icon="plus"
@@ -81,6 +82,7 @@
                             xdata-inline="true"
                             data-theme="c"
 							data-i18n="buttons.contribute">How do you like this place?</a>
+                        <!--
                         <a id="button-refresh"
                             data-role="button"
                             data-icon="refresh"
@@ -88,19 +90,20 @@
                             xdata-inline="true"
                             data-mini="true"
                             data-theme="c">Refresh location from GPS</a>
+                            -->
 					</div>
 					
-					<div id="slider-comfort">
-						<span id="slider-comfort-label" data-i18n="comfort.label">This place is:</span>
+					<div id="slider-comfort" class="bottompanel comfort">
+						<span id="slider-comfort-label" class="label" data-i18n="comfort.label">This place is:</span>
 						<input type="range" name="slider1" id="slider1" value="4" min="1" max="7"/>	
-						<span id="slider-comfort-label-1" data-i18n="comfort.uncomfortable">uncomfortable</span>						
-						<span id="slider-comfort-label-7" data-i18n="comfort.comfortable">comfortable</span>
+						<span id="slider-comfort-label-1" class="label" data-i18n="comfort.uncomfortable">uncomfortable</span>						
+						<span id="slider-comfort-label-7" class="label" data-i18n="comfort.comfortable">comfortable</span>
 						
 						<a id="comfort_cancel" data-role="button" data-icon="home" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.cancel">Cancel</a>
 						<a id="comfort_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.next">Next</a>
 					</div>
 					
-					<div id="checkbox-adj">
+					<div id="checkbox-adj" class="bottompanel">
 						<fieldset>
 							<label for="adj" id= "adj-label" data-i18n="adjective.label">This place is:</label>
 							<select name="adj" id="adj" multiple="multiple" data-native-menu="false">
@@ -124,7 +127,7 @@
 						<a id="adj_next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.next">Next</a>
 					</div>
 					
-					<div id="checkbox-conx">
+					<div id="checkbox-conx" class="bottompanel">
 						 <fieldset data-role="controlgroup" data-type="xhorizontal">
 									<legend id="checkbox-conx-label" data-i18n="context.label">I'm here ...</legend>
 									<input type="checkbox" class="xcheckbox-with" name="checkbox-h-2a" id="checkbox-h-2a" value="alone" checked>

@@ -193,6 +193,8 @@ function initialize() {
 		}).addTo(map);
 	}
 	
+    var MARKER_SIZE = 0.6;
+    
 	function EmoIcon(emo) {
         function getEmoImage(emo) {
             if (emo === null || emo === undefined) {
@@ -202,11 +204,11 @@ function initialize() {
 		}
 		var icon = L.divIcon({
             className: 'emoMarker',
-            iconSize: [129, 157],
-            iconAnchor: [64, 157],
-            popupAnchor: [0, -157],
-            html: '<img style="position:absolute; top:0; left:0; width:129px;" src="img/locationmarker.png">' +
-			'<img style="position:absolute; top:6px; left:6px;" src="' + getEmoImage(emo) + '">'
+            iconSize: [153*MARKER_SIZE, 186*MARKER_SIZE],
+            iconAnchor: [76*MARKER_SIZE, 186*MARKER_SIZE],
+            popupAnchor: [0, -186*MARKER_SIZE],
+            html: '<img style="position:absolute; top:0; left:0; width:' + (153*MARKER_SIZE) + 'px;" src="img/locationmarker.png">' +
+			'<img style="position:absolute; top:3%; left:5%; width:' + (137*MARKER_SIZE) + 'px;" src="' + getEmoImage(emo) + '">'
 		});
         return icon;
 	}
