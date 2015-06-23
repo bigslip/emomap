@@ -112,10 +112,11 @@ function initialize() {
 	
 	//Check whether it is the first time launch
 	var isApplaunch = window.localStorage.getItem('isLaunch');
-	if(isApplaunch){
+	if (isApplaunch){
 		$("#start-page").hide();
 		$("#main-page").show();
-		}else {
+		}
+    else {
 		//first time launch
 		$("#start-page").show();
 		$("#main-page").hide();				
@@ -176,6 +177,12 @@ function initialize() {
 		//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 	*/
+    // resize map to cover whole screen
+    var mapEl = $('#map');
+    mapEl.height($(document).height() - mapEl.offset().top);
+    var mapEl = $('.tabs');
+    mapEl.height($(document).height() - mapEl.offset().top);
+    
 	var map = L.map('map', {
 		center: curLatLng,
 		zoom: 16
@@ -208,7 +215,7 @@ function initialize() {
             iconAnchor: [76*MARKER_SIZE, 186*MARKER_SIZE],
             popupAnchor: [0, -186*MARKER_SIZE],
             html: '<img style="position:absolute; top:0; left:0; width:' + (153*MARKER_SIZE) + 'px;" src="img/locationmarker.png">' +
-			'<img style="position:absolute; top:3%; left:5%; width:' + (137*MARKER_SIZE) + 'px;" src="' + getEmoImage(emo) + '">'
+			'<img style="position:absolute; top:3.3%; left:5.4%; width:' + (137*MARKER_SIZE) + 'px;" src="' + getEmoImage(emo) + '">'
 		});
         return icon;
 	}
