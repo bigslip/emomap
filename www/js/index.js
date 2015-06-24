@@ -166,6 +166,11 @@ function initialize() {
 		function alertDismissed_registrationSuccess() {
 			$("#start-page").hide();
 			$("#main-page").show();
+			// resize map to cover whole screen
+			var mapEl = $('#map');
+			mapEl.height($(document).height() - mapEl.offset().top);
+			var mapEl = $('.tabs');
+			mapEl.height($(document).height() - mapEl.offset().top);
 			map._onResize();
 		}		 
 	});
@@ -189,6 +194,7 @@ function initialize() {
 	});	
 	if (networkState == Connection.NONE){	
 		L.tileLayer('tiles/{z}/{x}/{y}.png', {
+		//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 			minZoom:12,
 			maxZoom:16
@@ -199,8 +205,8 @@ function initialize() {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'			
 		}).addTo(map);
 	}
-	
-    var MARKER_SIZE = 0.6;
+			
+    var MARKER_SIZE = 0.4;
     
 	function EmoIcon(emo) {
         function getEmoImage(emo) {
@@ -233,7 +239,7 @@ function initialize() {
 	
 	$("#start-menu-contribute").click(function(){
 		//enabling comfort slider to start contributing
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
 		$("#slider-comfort").show();		
 		$("#comfort_next").addClass("ui-disabled");//disable "next"
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").addClass("ui-disabled");//disable all nav bars
@@ -245,7 +251,7 @@ function initialize() {
 		$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").prop("checked",false).checkboxradio("refresh");		
 		$("#radio-choice-21").prop("checked",true).checkboxradio("refresh"); 
 		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 		
-		
+		marker.closePopup();
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
@@ -281,7 +287,7 @@ function initialize() {
 	//show the user' contributions
 	$("#start-menu-my, #navbar-my").click(function(){
 		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();		
 		$("#map").show();
 		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-my").addClass("ui-btn-active");			
@@ -293,6 +299,8 @@ function initialize() {
 		if (map.hasLayer(markersMy)){
 			map.removeLayer(markersMy);
 		}
+		marker.setIcon(EmoIcon());
+		marker.closePopup();
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
@@ -322,7 +330,10 @@ function initialize() {
 				ii++;
 			});
 			markersMy = vizEmos(map, locations, emos);
+			$("#mymap-stat").html ("In total, you have " + ii + " contributions. <br/><br/>");
+			$("#mymap-stat").show();
 		});
+		
 	}); 
 	
 	//show all contributions
@@ -334,6 +345,8 @@ function initialize() {
 		if (map.hasLayer(markersMy)){
 			map.removeLayer(markersMy);
 		}
+		marker.setIcon(EmoIcon());
+		marker.closePopup();
 		
 		if (networkState == Connection.NONE){
 			//alert("The EmoMap can not be shown due to no Internet Connection!");
@@ -346,13 +359,11 @@ function initialize() {
 			return;
 		}	
 		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
 		$("#map").show();
 		$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-all").addClass("ui-btn-active");	
-		
-		
-		
+			
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
@@ -386,7 +397,7 @@ function initialize() {
 	
 	//information about emomap
 	$("#start-menu-about,#navbar-about").click(function(){
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx, #map").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#map").hide();
 		$("#info").show();		
 		$("#navbar-start,#navbar-my,#navbar-all").removeClass("ui-btn-active");
 		$("#navbar-about").addClass("ui-btn-active");
@@ -398,12 +409,13 @@ function initialize() {
 		if (map.hasLayer(markersMy)){
 			map.removeLayer(markersMy);
 		}
+		marker.closePopup();
 	});	
 	
 	$("#navbar-start").click(function(){
 		//start the main page
 		$("#start-menu, #map").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#navbar-start").addClass("ui-btn-active");
 		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		
@@ -414,17 +426,20 @@ function initialize() {
 		if (map.hasLayer(markersMy)){
 			map.removeLayer(markersMy);
 		}
+		marker.closePopup();
 	});	
 	
 	$("#comfort_cancel").click(function(){
 		//go back to start page
 		$("#start-menu").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
+		marker.setIcon(EmoIcon());
+		marker.closePopup();
 	});
 	$("#comfort_next").click(function(){
 		//go to adj page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#checkbox-adj").show();
 		
 		if(adj=="")
@@ -433,25 +448,25 @@ function initialize() {
 	
 	$("#adj_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#slider-comfort").show();			
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#adj_next").click(function(){
 		//go to conx page		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#info,#mymap-stat").hide();
 		$("#checkbox-conx").show();
 	});
 	
 	$("#conx_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#checkbox-adj").show();
 		$("#adj_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#conx_next").click(function(){
 		//submit to pouchdb and couchd, add result to map, set all variables to initial values
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		
 		var timestamp = new Date().toISOString();		
@@ -473,13 +488,16 @@ function initialize() {
 			}
 		});
 		//marker.getPopup().setContent("<b>Thank you for your contribution!</b>");
-		marker.closePopup();
+		
 		//alert("Thank you for your contribution!");
 		//alert(i18n.t('messages.contribution-success'));
 		navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "EmoMap", i18n.t('messages.ok'));
 		function alertDismissed_contributionSuccess() {
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();	
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();	
+			$("#navbar-start").addClass("ui-btn-active");
+			marker.setIcon(EmoIcon());
+			marker.closePopup();
 		}				
 	});
 	
@@ -526,20 +544,6 @@ function initialize() {
 		conx_first=$(this).val();
 		console.log(conx_first);
 	});
-	
-}
-
-
-
-//show all contributions
-function allEmoMap(){		
-	$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
-	$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
-	$("#navbar-all").addClass("ui-btn-active");
-}
-
-//information about emomap
-function Info(){		
 	
 }
 
