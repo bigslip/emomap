@@ -1,0 +1,78 @@
+{
+	"registration":
+    {
+        "label": "Welcome to EmoMap! Please answer a few questions to take part.",
+		"gender-label": "Genere",
+		"gender-male": "uomo",
+		"gender-female": "donna",
+		"gender-unknown": "non specificato",
+		"birth-label": "When were you born?",
+		"birth": "Anno di nascita",
+		"work-label": "Lavoro",
+		"work-employed": "impiegato",
+		"work-student": "studente",
+		"work-unemployed": "disoccupato e in ricerca di lavoro",
+		"work-retired": "pensionato",
+		"work-other": "altro",
+		"agree": "by clicking 'Submit', you accept terms and conditions.",
+		"button": "Register"		
+    },
+    "buttons":
+    {
+        "contribute": "Quanto ti piace questo posto?",
+		"cancel": "Annulla",
+		"next": "Avanti",
+		"back": "Indietro",
+		"submit": "Invia"
+    },
+    "comfort":
+    {
+        "label": "Questo posto è:",
+        "uncomfortable": "Confortevole",
+		"comfortable": "Non confortevole"
+    },
+	"adjective":
+    {
+        "label": "Questo posto è:",
+        "Active": "Attivo",
+		"Beautiful": "Bello",
+		"Boring": "Noioso",
+        "Comfortable": "Confortevole",
+		"Desolate": "Desolato",
+		"Disgusting": "Disgustoso",
+        "Enjoyable": "Piacevole",
+		"Exciting": "Eccitante",
+		"Frightening": "Spaventoso",
+        "Frustrating": "Frustrante",
+		"Hectic": "Frenetico",
+		"Majestic": "Maestoso",
+        "Peaceful": "Tranquillo",
+		"Sleepy": "Addormentato"
+    },
+	"context":
+    {
+        "label": "Sono qui ….",
+        "alone": "Da solo",
+		"adult": "Con adulto/i",
+		"child": "Con bambino/i",
+		"dog": "Con cane/i",
+		"firsttime": "Per la prima volta",
+		"moreoften": "Più spesso"
+    },
+	"info":
+    {
+        "header": "About EmoMap",
+        "content": "..."
+    },
+	"messages":
+    {
+		"registration-form-empty": "Please complete the registration form!",
+        "geolocation-error": "Non troviamo la tua posizione corrente!",
+        "registration-success": "Grazie! Ora puoi iniziare a creare la mappa delle tue emozioni!",
+		"marker-popup": "Your current location? Drag the marker to correct!",
+		"contribution-success": "Grazie per il tuo contributo!",
+		"allemomap-nointernet": "La tua EmoMap non può essere mostrata perché non sei connesso ad Internet!",
+		"location-enable": "Abilita i servizi di geolocalizzazione!",
+		"ok": "OK"
+    }
+}

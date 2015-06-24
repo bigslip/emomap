@@ -1,4 +1,22 @@
 {
+	"registration":
+    {
+        "label": "Welcome to EmoMap! Please answer a few questions to take part.",
+		"gender-label": "Gender",
+		"gender-male": "男",
+		"gender-female": "女",
+		"gender-unknown": "Prefer not to say",
+		"birth-label": "When were you born?",
+		"birth": "Birth Year",
+		"work-label": "工作状态",
+		"work-employed": "上班",
+		"work-student": "全职学生",
+		"work-unemployed": "失业中或者正在找工作",
+		"work-retired": "退休",
+		"work-other": "其他",
+		"agree": "by clicking 'Submit', you accept terms and conditions.",
+		"button": "注册"		
+    },
     "buttons":
     {
         "contribute": "你喜欢这个地方吗？",
@@ -48,7 +66,8 @@
     },
 	"messages":
     {
-        "geolocation-error": "没有位置信息",
+		"registration-form-empty": "Please complete the registration form!",
+        "geolocation-error": "没有找到您的当前位置！",
         "registration-success": "谢谢您的注册。现在您可以开始创建您的情感地图了！",
 		"marker-popup": "不是您当前位置? 您可以拖动图标调整位置",
 		"contribution-success": "谢谢您。",

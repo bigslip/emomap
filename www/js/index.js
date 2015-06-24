@@ -124,23 +124,28 @@ function initialize() {
 	
 	//registration	
 	
-	var gender="male";
+	var gender="";
 	$("#gender").bind( "change", function() {
-		gender = $(this).val();
+		gender = $(this).val();		
 		console.log(gender);				
 	});
-	var birthyear="1951";
+	var birthyear="";
 	$("#birthyear").bind( "change", function() {
 		birthyear = $(this).val();
 		console.log(birthyear);				
 	});
-	var workstatus="employed";
+	var workstatus="";
 	$("#workstatus").bind( "change", function() {
 		workstatus = $(this).val();
 		console.log(workstatus);				
 	});
 	$("#register").click(function(){		
 		//register users
+		if((gender=="")||(birthyear=="")||(workstatus=="")){
+			alert(i18n.t('messages.registration-form-empty'));
+			return;
+		}
+			
 		//might be good to check whether the internet is available
 		//it does not check whether the device is already registered or not.
 		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_user');
@@ -198,14 +203,16 @@ function initialize() {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 			minZoom:12,
 			maxZoom:16
-		}).addTo(map);
+		}).addTo(map);		
 	}
 	else{
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'			
-		}).addTo(map);
+		}).addTo(map);		
 	}
-			
+	
+
+	
     var MARKER_SIZE = 0.4;
     
 	function EmoIcon(emo) {
@@ -330,7 +337,7 @@ function initialize() {
 				ii++;
 			});
 			markersMy = vizEmos(map, locations, emos);
-			$("#mymap-stat").html ("In total, you have " + ii + " contributions. <br/><br/>");
+			$("#mymap-stat").html ("<b>In total, you have " + ii + " contributions. </b><br/><br/>");
 			$("#mymap-stat").show();
 		});
 		
@@ -556,6 +563,7 @@ function vizEmos (map, locations, emos){
 		});
 		
 		var marker_emo = L.marker(locations[i], { icon: locationIcon});
+		marker_emo.bindPopup("comfortable: " + emos[i].toString());
 		marker_emo.mydata=parseInt(emos[i]);
 		markers.addLayer(marker_emo);
 	}

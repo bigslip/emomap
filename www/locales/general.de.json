@@ -1,4 +1,22 @@
 {
+	"registration":
+    {
+        "label": "Welcome to EmoMap! Please answer a few questions to take part.",
+		"gender-label": "Gender",
+		"gender-male": "Male",
+		"gender-female": "Female",
+		"gender-unknown": "Prefer not to say",
+		"birth-label": "When were you born?",
+		"birth": "Birth Year",
+		"work-label": "Work Status",
+		"work-employed": "Employed",
+		"work-student": "Full-time education",
+		"work-unemployed": "Unemployed and seeking work",
+		"work-retired": "Retired",
+		"work-other": "Other",
+		"agree": "by clicking 'Submit', you accept <a href='#'>terms and conditions</a>.",
+		"button": "Register"		
+    },
     "buttons":
     {
         "contribute": "How do you like this place?",
@@ -48,6 +66,7 @@
     },
 	"messages":
     {
+		"registration-form-empty": "Please complete the registration form!",
         "geolocation-error": "Can not get your current location!",
         "registration-success": "Thank you! Now you start to create your emotional map!",
 		"marker-popup": "Correct location? You can drag the marker to adjust its position!",
