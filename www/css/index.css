@@ -35,7 +35,7 @@ h1 {
 #main-page {
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow: hidden; /* change to auto when too much info text */
 }
 .header-logo {
     width: 100%;
