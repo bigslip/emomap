@@ -69,7 +69,7 @@
 		"registration-form-empty": "Please complete the registration form!",
         "geolocation-error": "Non troviamo la tua posizione corrente!",
         "registration-success": "Grazie! Ora puoi iniziare a creare la mappa delle tue emozioni!",
-		"marker-popup": "Your current location? Drag the marker to correct!",
+		"marker-popup": "Not your current location? Drag the marker to correct!",
 		"contribution-success": "Grazie per il tuo contributo!",
 		"allemomap-nointernet": "La tua EmoMap non può essere mostrata perché non sei connesso ad Internet!",
 		"location-enable": "Abilita i servizi di geolocalizzazione!",

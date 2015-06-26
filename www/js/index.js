@@ -3,8 +3,8 @@ function initialize() {
 	ln.init();//set page language according to the device language
 	
 	//initial values
-	var curLatLng = [48.209219,16.370821],
-	//curLatLng = [48.191472, 16.269066],
+	//var curLatLng = [48.209219,16.370821],
+	var curLatLng = [45.810991, 9.081521],
 	curLatLngAccuracy = 0,
 	curHeading = 0,
 	level_of_comfort = 4,
@@ -32,6 +32,7 @@ function initialize() {
 			navigator.notification.alert(i18n.t('messages.location-enable'), alertDismissed_gpsSetting1, "EmoMap", i18n.t('messages.ok'));
 			function alertDismissed_gpsSetting1() {
             	cordova.plugins.diagnostic.switchToLocationSettings();
+				//here might need to tell the user that they might need to re-start the app to get the gps location
 			}			
 		}
 	},
@@ -115,7 +116,7 @@ function initialize() {
 	if (isApplaunch){
 		$("#start-page").hide();
 		$("#main-page").show();
-		}
+	}
     else {
 		//first time launch
 		$("#start-page").show();
@@ -145,7 +146,13 @@ function initialize() {
 			alert(i18n.t('messages.registration-form-empty'));
 			return;
 		}
-			
+		
+		if (networkState == Connection.NONE){
+			//alert("The EmoMap can not be shown due to no Internet Connection!");
+			alert("Registration fails due to no Internet Connection!");			
+			return;
+		}	
+		
 		//might be good to check whether the internet is available
 		//it does not check whether the device is already registered or not.
 		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_user');
@@ -195,14 +202,14 @@ function initialize() {
     
 	var map = L.map('map', {
 		center: curLatLng,
-		zoom: 16
+		zoom: 17
 	});	
 	if (networkState == Connection.NONE){	
-		L.tileLayer('tiles/{z}/{x}/{y}.png', {
-		//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		//L.tileLayer('como1/{z}/{x}/{y}.png', {
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 			minZoom:12,
-			maxZoom:16
+			maxZoom:17
 		}).addTo(map);		
 	}
 	else{
@@ -211,28 +218,27 @@ function initialize() {
 		}).addTo(map);		
 	}
 	
-
 	
-    var MARKER_SIZE = 0.4;
-    
+	var MARKER_SIZE = 0.4;
+	
 	function EmoIcon(emo) {
-        function getEmoImage(emo) {
-            if (emo === null || emo === undefined) {
-                return 'img/emo_empty.png'
+		function getEmoImage(emo) {
+			if (emo === null || emo === undefined) {
+				return 'img/emo_empty.png'
 			}
 			return 'img/emo_' + emo + '.png'
 		}
 		var icon = L.divIcon({
-            className: 'emoMarker',
-            iconSize: [153*MARKER_SIZE, 186*MARKER_SIZE],
-            iconAnchor: [76*MARKER_SIZE, 186*MARKER_SIZE],
-            popupAnchor: [0, -186*MARKER_SIZE],
-            html: '<img style="position:absolute; top:0; left:0; width:' + (153*MARKER_SIZE) + 'px;" src="img/locationmarker.png">' +
+			className: 'emoMarker',
+			iconSize: [153*MARKER_SIZE, 186*MARKER_SIZE],
+			iconAnchor: [76*MARKER_SIZE, 186*MARKER_SIZE],
+			popupAnchor: [0, -186*MARKER_SIZE],
+			html: '<img style="position:absolute; top:0; left:0; width:' + (153*MARKER_SIZE) + 'px;" src="img/locationmarker.png">' +
 			'<img style="position:absolute; top:3.3%; left:5.4%; width:' + (137*MARKER_SIZE) + 'px;" src="' + getEmoImage(emo) + '">'
 		});
-        return icon;
+		return icon;
 	}
-    
+	
 	//add a marker to identify the map center
 	var locationIcon = EmoIcon();
 	marker = L.marker(curLatLng, {icon: EmoIcon(), draggable: true}).addTo(map);	
@@ -244,10 +250,51 @@ function initialize() {
 		console.log(curLatLng);		
 	});
 	
+	//add locate me control
+	L.control.locate({
+		drawCircle: false,
+		markerClass:L.circleMarker,
+		markerStyle: {opacity:0, fill:false},
+		showPopup: false,
+		originalMarker: marker,
+		onLocationError: function(err) {alert(err.message)},  // define an error callback function, update the alert message.
+		onLocationOutsideMapBounds:  function(context) { // called when outside map boundaries
+		},
+		locateOptions: {enableHighAccuracy: true, maximumAge: 3000,timeout:10000,watch:false}
+	}).addTo(map);
+	
+	//add legend: for my map and all map only
+	var legend = L.control({position: 'bottomright'});	
+	legend.onAdd = function (map) {		
+		var div = L.DomUtil.create('div', 'legend'),
+		grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"],
+		labels = [];
+		var ihtml='<img src="css/lib/images/emo4.png" alt="contribution" style="width:12px;height:12px;"/> individual contribution<br/>';
+		ihtml=ihtml+'<img src="css/lib/images/circle.png" alt="cluster" style="width:12px;height:12px;"/> cluster and its size<br/><br/>';
+		div.innerHTML +=ihtml;
+		// loop through our density intervals and generate a label with a colored square for each interval
+		for (var i = grades.length-1; i >=0; i--) {
+			div.innerHTML +=
+			'<i style="background:' + getColor(i+1) + '"></i> ' +
+			grades[i] + (i!=0 ? '<br>' : '');
+		}		
+		return div;
+	};
+	function getColor(d) {
+		return d == 1  ? 'rgba(247, 49, 40, 0.8)' :
+		d == 2  ? 'rgba(253, 119, 0, 0.8)' :
+		d == 3  ? 'rgba(253, 223, 60, 0.8)' :
+		d == 4  ? 'rgba(180, 180, 180, 0.8)' :
+		d == 5  ? 'rgba(214, 239, 138, 0.8)' :
+		d == 6  ? 'rgba(144, 209, 50, 0.8)' :
+		'rgba(0, 154, 0, 0.8)';
+	}	
+	legend.addTo(map);
+	
 	$("#start-menu-contribute").click(function(){
 		//enabling comfort slider to start contributing
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
-		$("#slider-comfort").show();		
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#info, .legend").hide();
+		$("#slider-comfort").show();	
 		$("#comfort_next").addClass("ui-disabled");//disable "next"
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").addClass("ui-disabled");//disable all nav bars
 		
@@ -295,7 +342,7 @@ function initialize() {
 	$("#start-menu-my, #navbar-my").click(function(){
 		
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();		
-		$("#map").show();
+		$("#map,.legend").show();
 		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-my").addClass("ui-btn-active");			
 		
@@ -331,14 +378,17 @@ function initialize() {
 			var locations=[];
 			var emos=[];
 			var ii=0;
+			var emo_sum=0.0;
 			doc.rows.forEach(function(todo) {
 				locations.push(todo.doc.location);
+				emo_sum = emo_sum + parseInt(todo.doc.comfort);
 				emos.push(todo.doc.comfort);
 				ii++;
 			});
 			markersMy = vizEmos(map, locations, emos);
-			$("#mymap-stat").html ("<b>In total, you have " + ii + " contributions. </b><br/><br/>");
+			$("#mymap-stat").html ("<b>In total, you have " + ii + " contributions, and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable). </b><br/><br/>");
 			$("#mymap-stat").show();
+			
 		});
 		
 	}); 
@@ -360,17 +410,18 @@ function initialize() {
 			alert(i18n.t('messages.allemomap-nointernet'));
 			//start the main page
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info, .legend").hide();
 			$("#navbar-start").addClass("ui-btn-active");
 			$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 			return;
 		}	
 		
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
-		$("#map").show();
+		$("#map,.legend").show();
+
 		$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-all").addClass("ui-btn-active");	
-			
+		
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			//curLatLng=new L.LatLng(position.coords.latitude, position.coords.longitude);
@@ -386,6 +437,7 @@ function initialize() {
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
+		
 		
 		
 		//read data from the server database
@@ -404,8 +456,8 @@ function initialize() {
 	
 	//information about emomap
 	$("#start-menu-about,#navbar-about").click(function(){
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#map").hide();
-		$("#info").show();		
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#map, .legend").hide();
+		$("#info").show();	
 		$("#navbar-start,#navbar-my,#navbar-all").removeClass("ui-btn-active");
 		$("#navbar-about").addClass("ui-btn-active");
 		
@@ -422,7 +474,7 @@ function initialize() {
 	$("#navbar-start").click(function(){
 		//start the main page
 		$("#start-menu, #map").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#navbar-start").addClass("ui-btn-active");
 		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		
@@ -439,14 +491,14 @@ function initialize() {
 	$("#comfort_cancel").click(function(){
 		//go back to start page
 		$("#start-menu").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		marker.setIcon(EmoIcon());
 		marker.closePopup();
 	});
 	$("#comfort_next").click(function(){
 		//go to adj page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#checkbox-adj").show();
 		
 		if(adj=="")
@@ -455,25 +507,25 @@ function initialize() {
 	
 	$("#adj_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#slider-comfort").show();			
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#adj_next").click(function(){
 		//go to conx page		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#info,#mymap-stat").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#info,#mymap-stat, .legend").hide();
 		$("#checkbox-conx").show();
 	});
 	
 	$("#conx_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#checkbox-adj").show();
 		$("#adj_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#conx_next").click(function(){
 		//submit to pouchdb and couchd, add result to map, set all variables to initial values
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		
 		var timestamp = new Date().toISOString();		
@@ -501,76 +553,76 @@ function initialize() {
 		navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "EmoMap", i18n.t('messages.ok'));
 		function alertDismissed_contributionSuccess() {
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat").hide();	
-			$("#navbar-start").addClass("ui-btn-active");
-			marker.setIcon(EmoIcon());
-			marker.closePopup();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();	
+		$("#navbar-start").addClass("ui-btn-active");
+		marker.setIcon(EmoIcon());
+		marker.closePopup();
 		}				
-	});
-	
-	
-	
-	//get level of comfort
-	$("#slider1").bind("slidestop", function () {  			
+		});
+		
+		
+		
+		//get level of comfort
+		$("#slider1").bind("slidestop", function () {  			
 		level_of_comfort = $("#slider1").val();
 		console.log(level_of_comfort);
-        //locationIcon.setEmo(level_of_comfort);
-        marker.setIcon(EmoIcon(level_of_comfort-4));
+		//locationIcon.setEmo(level_of_comfort);
+		marker.setIcon(EmoIcon(level_of_comfort-4));
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
-	});
-	
-	//get adjectives
-	$("#adj").bind( "change", function() {
+		});
+		
+		//get adjectives
+		$("#adj").bind( "change", function() {
 		adj = $(this).val();
 		console.log(adj);	
 		if((adj==null)||(adj==""))
 		$("#adj_next").addClass("ui-disabled");//disable "next"
 		else
 		$("#adj_next").removeClass("ui-disabled");//enable "next"		
-	});
-	
-	//get context (with whom)
-	$(".xcheckbox-with").bind( "change", function() {
+		});
+		
+		//get context (with whom)
+		$(".xcheckbox-with").bind( "change", function() {
 		//alert($(this).val());
 		//var click_alone=$(this).attr("value").includes("alone");		
 		var click_alone=$(this).val().search("alone");
 		if(click_alone!=-1){
-			$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
-			$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").attr("checked",false).checkboxradio("refresh");
+		$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
+		$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").attr("checked",false).checkboxradio("refresh");
 		}
 		else{			
-			$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh",true);
+		$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh",true);
 		}
 		
 		conx_with= $(".xcheckbox-with:checked").map(function () {return this.value;}).get().join(",");
 		
 		console.log(conx_with);
-	});
-	//get context (first time)
-	$("input[type='radio']").bind( "change", function() {
+		});
+		//get context (first time)
+		$("input[type='radio']").bind( "change", function() {
 		conx_first=$(this).val();
 		console.log(conx_first);
-	});
-	
-}
-
-//visualizing emos using marker cluster
-function vizEmos (map, locations, emos){
-	var markers = L.markerClusterGroup();	
-	for (var i = 0; i < emos.length; i++) {
+		});
+		
+		}
+		
+		//visualizing emos using marker cluster
+		function vizEmos (map, locations, emos){
+		var markers = L.markerClusterGroup();	
+		for (var i = 0; i < emos.length; i++) {
 		var locationIcon = L.icon({
-			iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
+		iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
 		});
 		
 		var marker_emo = L.marker(locations[i], { icon: locationIcon});
 		marker_emo.bindPopup("comfortable: " + emos[i].toString());
 		marker_emo.mydata=parseInt(emos[i]);
 		markers.addLayer(marker_emo);
-	}
-	map.addLayer(markers);
-	return markers;
-}
-
-document.addEventListener('deviceready', initialize);
-
-//	
+		}
+		map.addLayer(markers);
+		return markers;
+		}
+		
+		document.addEventListener('deviceready', initialize);
+		
+		//																			
