@@ -264,15 +264,13 @@ function initialize() {
 	}).addTo(map);
 	
 	//add legend: for my map and all map only
-	var legend = L.control({position: 'bottomright'});	
+	var legend = L.control({position: 'topright'});	
 	legend.onAdd = function (map) {		
 		var div = L.DomUtil.create('div', 'legend'),
 		grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"],
 		labels = [];
-		var ihtml='<img src="css/lib/images/emo4.png" alt="contribution" style="width:12px;height:12px;"/> individual contribution<br/>';
-		ihtml=ihtml+'<img src="css/lib/images/circle.png" alt="cluster" style="width:12px;height:12px;"/> cluster and its size<br/><br/>';
-		div.innerHTML +=ihtml;
-		// loop through our density intervals and generate a label with a colored square for each interval
+		div.innerHTML +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> individual contribution<br/>';
+		div.innerHTML +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/> cluster and its size<br/><br/>';
 		for (var i = grades.length-1; i >=0; i--) {
 			div.innerHTML +=
 			'<i style="background:' + getColor(i+1) + '"></i> ' +
@@ -293,7 +291,7 @@ function initialize() {
 	
 	$("#start-menu-contribute").click(function(){
 		//enabling comfort slider to start contributing
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#info, .legend").hide();
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#allmap-stat,#info, .legend").hide();
 		$("#slider-comfort").show();	
 		$("#comfort_next").addClass("ui-disabled");//disable "next"
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").addClass("ui-disabled");//disable all nav bars
@@ -341,7 +339,7 @@ function initialize() {
 	//show the user' contributions
 	$("#start-menu-my, #navbar-my").click(function(){
 		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info").hide();		
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#allmap-stat,#info").hide();		
 		$("#map,.legend").show();
 		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-my").addClass("ui-btn-active");			
@@ -386,7 +384,7 @@ function initialize() {
 				ii++;
 			});
 			markersMy = vizEmos(map, locations, emos);
-			$("#mymap-stat").html ("<b>In total, you have " + ii + " contributions, and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable). </b><br/><br/>");
+			$("#mymap-stat").html ("In total, you have " + ii + " contributions, and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/>");
 			$("#mymap-stat").show();
 			
 		});
@@ -410,7 +408,7 @@ function initialize() {
 			alert(i18n.t('messages.allemomap-nointernet'));
 			//start the main page
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info, .legend").hide();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
 			$("#navbar-start").addClass("ui-btn-active");
 			$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 			return;
@@ -418,7 +416,7 @@ function initialize() {
 		
 		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
 		$("#map,.legend").show();
-
+		
 		$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-all").addClass("ui-btn-active");	
 		
@@ -436,9 +434,7 @@ function initialize() {
 			alert(i18n.t('messages.geolocation-error'));
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
-		);
-		
-		
+		);	
 		
 		//read data from the server database
 		var db_server = new PouchDB(remoteAllCouch);
@@ -451,12 +447,13 @@ function initialize() {
 				emos.push(todo.doc.comfort);			
 			});	
 			markersAll = vizEmos(map, locations, emos);
+			generateAllEmos (curLatLng, locations, emos); //add stat.
 		});
 	}); 
 	
 	//information about emomap
 	$("#start-menu-about,#navbar-about").click(function(){
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#map, .legend").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#allmap-stat,#map, .legend").hide();
 		$("#info").show();	
 		$("#navbar-start,#navbar-my,#navbar-all").removeClass("ui-btn-active");
 		$("#navbar-about").addClass("ui-btn-active");
@@ -474,7 +471,7 @@ function initialize() {
 	$("#navbar-start").click(function(){
 		//start the main page
 		$("#start-menu, #map").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#navbar-start").addClass("ui-btn-active");
 		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		
@@ -491,14 +488,14 @@ function initialize() {
 	$("#comfort_cancel").click(function(){
 		//go back to start page
 		$("#start-menu").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		marker.setIcon(EmoIcon());
 		marker.closePopup();
 	});
 	$("#comfort_next").click(function(){
 		//go to adj page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#checkbox-adj").show();
 		
 		if(adj=="")
@@ -507,25 +504,25 @@ function initialize() {
 	
 	$("#adj_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#start-menu,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#slider-comfort").show();			
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#adj_next").click(function(){
 		//go to conx page		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#info,#mymap-stat, .legend").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#checkbox-conx").show();
 	});
 	
 	$("#conx_back").click(function(){
 		//go back to slider page
-		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#start-menu,#slider-comfort,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#checkbox-adj").show();
 		$("#adj_next").removeClass("ui-disabled");//enable "next"
 	});	
 	$("#conx_next").click(function(){
 		//submit to pouchdb and couchd, add result to map, set all variables to initial values
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		
 		var timestamp = new Date().toISOString();		
@@ -553,76 +550,95 @@ function initialize() {
 		navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "EmoMap", i18n.t('messages.ok'));
 		function alertDismissed_contributionSuccess() {
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();	
-		$("#navbar-start").addClass("ui-btn-active");
-		marker.setIcon(EmoIcon());
-		marker.closePopup();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();	
+			$("#navbar-start").addClass("ui-btn-active");
+			marker.setIcon(EmoIcon());
+			marker.closePopup();
 		}				
-		});
-		
-		
-		
-		//get level of comfort
-		$("#slider1").bind("slidestop", function () {  			
+	});
+	
+	
+	
+	//get level of comfort
+	$("#slider1").bind("slidestop", function () {  			
 		level_of_comfort = $("#slider1").val();
 		console.log(level_of_comfort);
 		//locationIcon.setEmo(level_of_comfort);
 		marker.setIcon(EmoIcon(level_of_comfort-4));
 		$("#comfort_next").removeClass("ui-disabled");//enable "next"
-		});
-		
-		//get adjectives
-		$("#adj").bind( "change", function() {
+	});
+	
+	//get adjectives
+	$("#adj").bind( "change", function() {
 		adj = $(this).val();
 		console.log(adj);	
 		if((adj==null)||(adj==""))
 		$("#adj_next").addClass("ui-disabled");//disable "next"
 		else
 		$("#adj_next").removeClass("ui-disabled");//enable "next"		
-		});
-		
-		//get context (with whom)
-		$(".xcheckbox-with").bind( "change", function() {
+	});
+	
+	//get context (with whom)
+	$(".xcheckbox-with").bind( "change", function() {
 		//alert($(this).val());
 		//var click_alone=$(this).attr("value").includes("alone");		
 		var click_alone=$(this).val().search("alone");
 		if(click_alone!=-1){
-		$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
-		$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").attr("checked",false).checkboxradio("refresh");
+			$("#checkbox-h-2a").attr("checked",true).checkboxradio("refresh");
+			$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").attr("checked",false).checkboxradio("refresh");
 		}
 		else{			
-		$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh",true);
+			$("#checkbox-h-2a").attr("checked",false).checkboxradio("refresh",true);
 		}
 		
 		conx_with= $(".xcheckbox-with:checked").map(function () {return this.value;}).get().join(",");
 		
 		console.log(conx_with);
-		});
-		//get context (first time)
-		$("input[type='radio']").bind( "change", function() {
+	});
+	//get context (first time)
+	$("input[type='radio']").bind( "change", function() {
 		conx_first=$(this).val();
 		console.log(conx_first);
-		});
-		
-		}
-		
-		//visualizing emos using marker cluster
-		function vizEmos (map, locations, emos){
-		var markers = L.markerClusterGroup();	
-		for (var i = 0; i < emos.length; i++) {
+	});
+	
+}
+
+//visualizing emos using marker cluster
+function vizEmos (map, locations, emos){
+	var markers = L.markerClusterGroup();	
+	for (var i = 0; i < emos.length; i++) {
 		var locationIcon = L.icon({
-		iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
+			iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
 		});
 		
 		var marker_emo = L.marker(locations[i], { icon: locationIcon});
-		marker_emo.bindPopup("comfortable: " + emos[i].toString());
+		marker_emo.bindPopup("Level of comfort: " + emos[i].toString());
 		marker_emo.mydata=parseInt(emos[i]);
 		markers.addLayer(marker_emo);
-		}
-		map.addLayer(markers);
-		return markers;
-		}
-		
-		document.addEventListener('deviceready', initialize);
-		
-		//																			
+	}
+	map.addLayer(markers);
+	return markers;
+}
+
+//generating all emomap stat. : for all emomap
+function generateAllEmos (curLoc, locations, emos){
+	var total_emo=0, total_num=0;	
+	var latlng_current = L.latLng(curLoc[0], curLoc[1]);
+	for (var i = 0; i < emos.length; i++) {
+		var dist=latlng_current.distanceTo (L.latLng(locations[i][0], locations[i][1]))
+		if(dist<=5000){
+			total_emo += parseInt(emos[i]);
+			total_num++;
+		}	
+	}
+	if (total_num!=0)
+		$("#allmap-stat").html ("In total, there are " + total_num + " contribution(s) within 5km of your current location, and the average emotional rating is " + (total_emo*1.0/total_num).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/><br/>");
+	else
+		$("#allmap-stat").html ("No body has added an emotional rating within 5km of your current location.<br/><br/>");
+	$("#allmap-stat").show();
+}
+
+
+document.addEventListener('deviceready', initialize);
+
+//																			
