@@ -14,7 +14,7 @@
 		"work-unemployed": "Unemployed and seeking work",
 		"work-retired": "Retired",
 		"work-other": "Other",
-		"agree": "by clicking 'Submit', you confirm that:",
+		"agree": "by tagging 'Register', you confirm that:",
 		"confirm1": "You are older than 18, and you agree to take part in the study.",
 		"confirm2": "You understand that you can withdraw at any time.",
 		"button": "Register"		
@@ -36,13 +36,13 @@
     },
     "comfort":
     {
-        "label": "This place is:",
+        "label": "Here it is ...",
         "uncomfortable": "uncomfortable",
 		"comfortable": "comfortable"
     },
 	"adjective":
     {
-        "label": "Here it is ...",
+        "label": "This place is:",
         "Active": "Active",
 		"Beautiful": "Beautiful",
 		"Boring": "Boring",
@@ -76,23 +76,23 @@
 	"info":
     {
         "header": "About EmoMap",
-        "about": "<b>EmoMap (Emotional Mapping)</b> is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environment.<br/>You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.",
-		"data": "<b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't ask for your name or any other identifying information. Therefore, we won't know who you are. ",
+        "about": "<b>EmoMap (Emotional Mapping)</b> is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environments.<br/>You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.",
+		"data": "<b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't store your name or any other identifying information. Therefore, we won't know who you are. ",
 		"use": "<b>How will the data be used?</b> The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places.",
 		"thanks": "<b>Acknowledgments.</b> Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. ",
-		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href="mailto:apps@cartography.tuwien.ac.at">apps@cartography.tuwien.ac.at</a>. "
+		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. "
     },
 	"messages":
     {
 		"registration-form-empty": "Please complete the registration form!",
         "geolocation-error": "Can not get your current location!",
-        "registration-success": "Thank you! Now you start to create your emotional map!",
+        "registration-success": "Thank you! Now you can start to contribute and create your emotional map!",
 		"marker-popup": "Not your current location? Drag the marker to correct!",
-		"contribution-success": "Thank you for your contribution!",
-		"allemomap-nointernet": "The EmoMap can not be shown due to no Internet Connection!",
+		"contribution-success": "Thank you very much for your contribution!",
+		"allemomap-nointernet": "The 'All Map' can not be shown due to no Internet Connection!",
 		"location-enable": "Please enable your location services!",
 		"ok": "OK",
-		"registration-fail": "Registration fails due to no Internet Connection!"
+		"registration-noInternet": "Registration fails due to no Internet connection!"
     },
 	"legend":
     {
