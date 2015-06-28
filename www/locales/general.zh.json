@@ -89,7 +89,7 @@
         "registration-success": "谢谢您！您现在可以开始创建您的情感地图（EmoMap）了!",
 		"marker-popup": "不是你的当前位置? 拖动图标进行调整!",
 		"contribution-success": "非常感谢您的贡献!",
-		"allemomap-nointernet": "由于没有网络连接，“所有人的地图”已被禁用!",
+		"allemomap-nointernet": "由于没有网络连接，“所有人的地图All Map”已被禁用!",
 		"location-enable": "请启用位置服务!",
 		"ok": "好",
 		"registration-noInternet": "由于没有网络连接，注册失败!"

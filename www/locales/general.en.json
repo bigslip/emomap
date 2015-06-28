@@ -86,9 +86,9 @@
     {
 		"registration-form-empty": "Please complete the registration form!",
         "geolocation-error": "Can not get your current location!",
-        "registration-success": "Thank you! Now you can start to contribute and create your emotional map!",
+        "registration-success": "Thank you for your registration! Now you can start to contribute and create your emotional map!",
 		"marker-popup": "Not your current location? Drag the marker to correct!",
-		"contribution-success": "Thank you very much for your contribution!",
+		"contribution-success": "Thank you very much for the contribution!",
 		"allemomap-nointernet": "The 'All Map' can not be shown due to no Internet Connection!",
 		"location-enable": "Please enable your location services!",
 		"ok": "OK",

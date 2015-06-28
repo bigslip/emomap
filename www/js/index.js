@@ -441,7 +441,7 @@ function initialize() {
 				navigator.notification.alert("The 'All Map' can not be shown due to no Internet Connection!", null, "EmoMap", "OK" );
 			}
 			else{	
-				navigator.notification.alert(i18n.t('messages.messages.allemomap-nointernet'), null, "EmoMap", i18n.t('messages.ok') );
+				navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "EmoMap", i18n.t('messages.ok') );
 			}
 			//start the main page
 			$("#start-menu").show();
