@@ -35,17 +35,17 @@
 						<label for="birthyear" data-i18n="registration.birth-label">When were you born?</label>
 						<select name="birthyear" id="birthyear">
 							<option value="" data-i18n="registration.birth">Birth Year</option>
-							<option value="1951">1951</option><option value="1952">1952</option><option value="1953">1953</option><option value="1954">1954</option><option value="1975">1955</option>
-							<option value="1956">1956</option><option value="1957">1957</option><option value="1958">1958</option><option value="1959">1959</option><option value="1970">1960</option>
-							<option value="1961">1961</option><option value="1962">1962</option><option value="1963">1963</option><option value="1964">1964</option><option value="1975">1965</option>
-							<option value="1966">1966</option><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option>
-							<option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option>
-							<option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option>
-							<option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option>
-							<option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option>
-							<option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option>
-							<option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option>
-							<option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option>
+							<option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option>
+							<option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option>
+							<option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option>
+							<option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option>
+							<option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option>
+							<option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option>
+							<option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option>
+							<option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option>
+							<option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option>
+							<option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option>
+							<option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option>
 						</select>
 					</fieldset>
 				</div>
@@ -61,7 +61,11 @@
 							<option value="other" data-i18n="registration.work-other">Other</option>
 						</select>
 					</fieldset>
-                    <label data-i18n="registration.agree">by clicking "Submit", you accept <a href="#">terms and conditions</a>.</label>	
+                    <label data-i18n="registration.agree">by clicking "Register", you confirm that:</label>	
+					<ul>
+						<li class='confirmation' data-i18n="registration.confirm1">You are older than 18, and you agree to take part in the study.</li>
+						<li class='confirmation' data-i18n="registration.confirm2">You understand that you can withdraw at any time.</li>
+					</ul>
                     <a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="registration.button">Register</a>
 				</div>
 					
@@ -71,10 +75,10 @@
 				<div data-role="tabs" class="tabs">
 					<div data-role="navbar">
 						<ul>
-							<li><a id="navbar-start" class="ui-btn-active">Add</a></li>
-							<li><a id="navbar-my">My Map</a></li>
-							<li><a id="navbar-all">All</a></li>
-							<li><a id="navbar-about">Info</a></li>
+							<li><a id="navbar-start" class="ui-btn-active" data-i18n="navbar.add">Add</a></li>
+							<li><a id="navbar-my" data-i18n="navbar.my">My Map</a></li>
+							<li><a id="navbar-all" data-i18n="navbar.all">All Map</a></li>
+							<li><a id="navbar-about" data-i18n="navbar.about">About</a></li>
 						</div>
 					</ul>
 					
@@ -100,7 +104,7 @@
 					</div>
 					
 					<div id="slider-comfort" class="bottompanel comfort">
-						<span id="slider-comfort-label" class="label" data-i18n="comfort.label">This place is:</span>
+						<span id="slider-comfort-label" class="label" data-i18n="comfort.label">Here it is ...</span>
 						<input type="range" name="slider1" id="slider1" value="4" min="1" max="7"/>	
 						<span id="slider-comfort-label-1" class="label" data-i18n="comfort.uncomfortable">uncomfortable</span>						
 						<span id="slider-comfort-label-7" class="label" data-i18n="comfort.comfortable">comfortable</span>
@@ -123,10 +127,15 @@
 								<option value="Exciting" data-i18n="adjective.Exciting">Exciting</option>
 								<option value="Frightening" data-i18n="adjective.Frightening">Frightening</option>
 								<option value="Frustrating" data-i18n="adjective.Frustrating">Frustrating</option>
+								<option value="Harsh" data-i18n="adjective.Harsh">Harsh</option>
 								<option value="Hectic" data-i18n="adjective.Hectic">Hectic</option>
 								<option value="Majestic" data-i18n="adjective.Majestic">Majestic</option>
 								<option value="Peaceful" data-i18n="adjective.Peaceful">Peaceful</option>
 								<option value="Sleepy" data-i18n="adjective.Sleepy">Sleepy</option>
+								<option value="Ugly" data-i18n="adjective.Ugly">Ugly</option>
+								<option value="Unstimulating" data-i18n="adjective.Unstimulating">Unstimulating</option>
+								<option value="Insignificant" data-i18n="adjective.Insignificant">Insignificant</option>
+								<option value="Festive" data-i18n="adjective.Festive">Festive</option>
 							</select>
 						</fieldset>						
 						<a id="adj_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.back">Back</a>
@@ -164,35 +173,17 @@
 					
 					<div id="info">
 						<h2 data-i18n="info.header">About EmoMap</h2>
-						<p id="text_about" data-i18n="info.content">EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.>EmoMap (Emotional Mapping) is part of a research project at the Vienna University of Technology, Austria, which aims to map people's affective/emotional responses towards different environment. 
-							While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. 
-							The data contributed are solely used for our academic research. We aim to investigate how people affectively response to different environments. For more information regarding EmoMap, please 
-							visit cartography.tuwien.ac.at.	<br/>
-							More to come...
+						<p id="text_about" data-i18n="[html]info.about"><b>EmoMap (Emotional Mapping)</b> is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environment. 							 
+								<br/>
+							You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.
+						</p>
+						<p id="text_about" data-i18n="[html]info.data"><b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't ask for your name or any other identifying information. Therefore, we won't know who you are. 
+						</p>
+						<p id="text_about" data-i18n="[html]info.use"><b>How will the data be used?</b> The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places. 
+						</p>
+						<p id="text_about" data-i18n="[html]info.thanks"><b>Acknowledgments.</b> Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. 
+						</p>
+						<p id="text_about" data-i18n="[html]info.contact">For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href="mailto:apps@cartography.tuwien.ac.at">apps@cartography.tuwien.ac.at</a>. 
 						</p>
 					</div>
 					

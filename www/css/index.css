@@ -81,6 +81,11 @@ h1 {
 .comfort .label {
 	font-size:15px;
 }
+
+.confirmation {
+	font-size:15px;
+}
+
 .comfort #slider-comfort-label {
     font-weight: bold;
 	font-size:20px;	
@@ -126,7 +131,6 @@ h1 {
 	display: none;
 }
 #text_about {
-	color: blue;
 	font-size:12px;	
 }
 
@@ -140,7 +144,7 @@ h1 {
     width: 10px;
     height: 10px;
     float: left;
-    margin-right: 0px;
+    margin-right: 1px;
     opacity: 0.9;
 }
 

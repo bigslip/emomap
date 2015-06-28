@@ -123,8 +123,7 @@ function initialize() {
 		$("#main-page").hide();				
 	}
 	
-	//registration	
-	
+	//registration		
 	var gender="";
 	$("#gender").bind( "change", function() {
 		gender = $(this).val();		
@@ -142,33 +141,46 @@ function initialize() {
 	});
 	$("#register").click(function(){		
 		//register users
+		
+		//might be good to check whether the internet is available
+		if (networkState == Connection.NONE){
+			//alert("The EmoMap can not be shown due to no Internet Connection!");
+			alert(i18n.t('messages.registration-fail'));			
+			return;
+		}
+		
+		//check inputs
 		if((gender=="")||(birthyear=="")||(workstatus=="")){
 			alert(i18n.t('messages.registration-form-empty'));
 			return;
 		}
-		
-		if (networkState == Connection.NONE){
-			//alert("The EmoMap can not be shown due to no Internet Connection!");
-			alert("Registration fails due to no Internet Connection!");			
-			return;
-		}	
-		
-		//might be good to check whether the internet is available
+	
 		//it does not check whether the device is already registered or not.
 		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_user');
 		var timestamp= new Date().toISOString();
-		var emo_user = {
-			_id: uuid,
-			timestamp: timestamp,
-			gender: gender,
-			birthyear: birthyear,
-			workstatus: workstatus
-		};
-		db_users.put(emo_user, function callback(err, result) {
-			if (!err) {
-				console.log('Successfully register a user!');
-			}
-		});
+		
+		db_users.get(uuid).then(function (doc) {
+			//if existed, update the user
+			doc.timestamp = timestamp;
+			doc.gender = gender;
+			doc.birthyear = birthyear;
+			doc.workstatus = workstatus;
+			db_users.put(doc);
+		}).catch(function (err) {
+			//if not existed, add the user
+			var emo_user = {
+				_id: uuid,
+				timestamp: timestamp,
+				gender: gender,
+				birthyear: birthyear,
+				workstatus: workstatus
+			};
+			db_users.put(emo_user, function callback(err, result) {
+				if (!err) {
+					console.log('Successfully register a user!');
+				}
+			});			
+		});		
 		
 		//set isLaunch as true
 		window.localStorage.setItem('isLaunch',true);
@@ -267,10 +279,11 @@ function initialize() {
 	var legend = L.control({position: 'topright'});	
 	legend.onAdd = function (map) {		
 		var div = L.DomUtil.create('div', 'legend'),
-		grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"],
+		//grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"],
+		grades = [i18n.t('legend.emo1'),i18n.t('legend.emo2'),i18n.t('legend.emo3'),i18n.t('legend.emo4'),i18n.t('legend.emo5'),i18n.t('legend.emo6'),i18n.t('legend.emo7')],
 		labels = [];
-		div.innerHTML +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> individual contribution<br/>';
-		div.innerHTML +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/> cluster and its size<br/><br/>';
+		div.innerHTML +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> '+ i18n.t('legend.single')+ '<br/>';
+		div.innerHTML +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/>'+ i18n.t('legend.single')+'<br/><br/>';
 		for (var i = grades.length-1; i >=0; i--) {
 			div.innerHTML +=
 			'<i style="background:' + getColor(i+1) + '"></i> ' +
@@ -384,7 +397,8 @@ function initialize() {
 				ii++;
 			});
 			markersMy = vizEmos(map, locations, emos);
-			$("#mymap-stat").html ("In total, you have " + ii + " contributions, and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/>");
+			//$("#mymap-stat").html ("In total, you have " + ii + " contribution(s), and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/>");
+			$("#mymap-stat").html (i18n.t('stat.total') + ii + i18n.t('stat.avg') + (emo_sum*1.0/ii).toFixed(1) + i18n.t('stat.scale')+"<br/>");
 			$("#mymap-stat").show();
 			
 		});
@@ -632,9 +646,9 @@ function generateAllEmos (curLoc, locations, emos){
 		}	
 	}
 	if (total_num!=0)
-		$("#allmap-stat").html ("In total, there are " + total_num + " contribution(s) within 5km of your current location, and the average emotional rating is " + (total_emo*1.0/total_num).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/><br/>");
+		$("#allmap-stat").html (i18n.t('stat.total_all') + total_num + i18n.t('stat.avg_all') + (total_emo*1.0/total_num).toFixed(1) + i18n.t('stat.scale') + "<br/><br/>");
 	else
-		$("#allmap-stat").html ("No body has added an emotional rating within 5km of your current location.<br/><br/>");
+		$("#allmap-stat").html (i18n.t('stat.total_all') +"<br/><br/>");
 	$("#allmap-stat").show();
 }
 

@@ -14,8 +14,17 @@
 		"work-unemployed": "Unemployed and seeking work",
 		"work-retired": "Retired",
 		"work-other": "Other",
-		"agree": "by clicking 'Submit', you accept terms and conditions.",
+		"agree": "by clicking 'Submit', you confirm that:",
+		"confirm1": "You are older than 18, and you agree to take part in the study.",
+		"confirm2": "You understand that you can withdraw at any time.",
 		"button": "Register"		
+    },
+	"navbar":
+    {
+        "add": "Add",
+		"my": "My Map",
+		"all": "All Map",
+		"about": "About"
     },
     "buttons":
     {
@@ -33,7 +42,7 @@
     },
 	"adjective":
     {
-        "label": "This place is:",
+        "label": "Here it is ...",
         "Active": "Active",
 		"Beautiful": "Beautiful",
 		"Boring": "Boring",
@@ -44,10 +53,15 @@
 		"Exciting": "Exciting",
 		"Frightening": "Frightening",
         "Frustrating": "Frustrating",
+		"Harsh": "Harsh",
 		"Hectic": "Hectic",
 		"Majestic": "Majestic",
         "Peaceful": "Peaceful",
-		"Sleepy": "Sleepy"
+		"Sleepy": "Sleepy",
+		"Ugly": "Ugly",
+        "Unstimulating": "Unstimulating",
+		"Insignificant": "Insignificant",
+        "Festive": "Festive"
     },
 	"context":
     {
@@ -62,7 +76,11 @@
 	"info":
     {
         "header": "About EmoMap",
-        "content": "..."
+        "about": "<b>EmoMap (Emotional Mapping)</b> is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environment.<br/>You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.",
+		"data": "<b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't ask for your name or any other identifying information. Therefore, we won't know who you are. ",
+		"use": "<b>How will the data be used?</b> The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places.",
+		"thanks": "<b>Acknowledgments.</b> Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. ",
+		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href="mailto:apps@cartography.tuwien.ac.at">apps@cartography.tuwien.ac.at</a>. "
     },
 	"messages":
     {
@@ -73,6 +91,29 @@
 		"contribution-success": "Thank you for your contribution!",
 		"allemomap-nointernet": "The EmoMap can not be shown due to no Internet Connection!",
 		"location-enable": "Please enable your location services!",
-		"ok": "OK"
+		"ok": "OK",
+		"registration-fail": "Registration fails due to no Internet Connection!"
+    },
+	"legend":
+    {
+		"emo1": "very uncomfortable",
+        "emo2": "uncomfortable",
+        "emo3": "slightly uncomfortable",
+		"emo4": "neutral",
+		"emo5": "slightly comfortable",
+		"emo6": "comfortable",
+		"emo7": "very comfortable",
+		"single": "individual contribution",
+		"cluster": "cluster and its size"
+    },
+	"stat":
+    {
+		"total": "In total, you have ",
+        "avg": " contribution(s), and the average emotional rating is ",
+        "scale": " on a scale of 1 (very uncomfortable) to 7 (very comfortable).",
+		"total_all": "In total, there are ",
+		"avg_all": " contribution(s) within 5km of your current location, and the average emotional rating is ",
+		"nopoint": "No body has added an emotional rating within 5km of your current location."
     }
+	
 }
