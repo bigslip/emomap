@@ -232,7 +232,7 @@ function initialize() {
 	var MARKER_SIZE = 0.4;	
 	function EmoIcon(emo) {
 		function getEmoImage(emo) {
-			if (emo === null || emo === undefined) {
+			if (emo == null || emo == undefined) {
 				return 'img/emo_empty.png'
 			}
 			return 'img/emo_' + emo + '.png'
@@ -595,6 +595,7 @@ function initialize() {
 			$("#navbar-start").addClass("ui-btn-active");
 			marker.setIcon(EmoIcon());
 			marker.closePopup();
+			map._onResize();
 		}				
 	});
 		

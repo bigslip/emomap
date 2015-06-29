@@ -129,6 +129,7 @@ h1 {
 
 #info {
 	display: none;
+	padding:10px;
 }
 #text_about {
 	font-size:12px;	
@@ -139,6 +140,7 @@ h1 {
     color: #555;
 	background-color: rgba(255,255,255,1);
 	display:none;
+	padding:5px;
 }
 .legend i {
     width: 10px;
