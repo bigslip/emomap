@@ -317,7 +317,13 @@ function initialize() {
 	
 	
 	$("#start-menu-contribute").click(function(){
-		//enabling comfort slider to start contributing
+
+		map.hasLayer(markersAll) && map.removeLayer(markersAll);
+		map.hasLayer(markersMy) && map.removeLayer(markersMy);
+		map.hasLayer(marker) || map.addLayer(marker);
+		marker.closePopup();
+
+        //enabling comfort slider to start contributing
 		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#allmap-stat,#info, .legend").hide();
 		$("#slider-comfort").show();	
 		$("#comfort_next").addClass("ui-disabled");//disable "next"
@@ -330,7 +336,6 @@ function initialize() {
 		$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").prop("checked",false).checkboxradio("refresh");		
 		$("#radio-choice-21").prop("checked",true).checkboxradio("refresh"); 
 		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 		
-		marker.closePopup();
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			curLatLng = [position.coords.latitude, position.coords.longitude];
@@ -364,6 +369,21 @@ function initialize() {
 		conx_with="alone";
 		conx_first="first_time";		
 	});
+
+	$("#navbar-start").click(function(){
+		//start the main page
+		$("#start-menu, #map").show();
+		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
+		$("#navbar-start").addClass("ui-btn-active");
+		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
+		
+		//clean map view
+		map.hasLayer(markersAll) && map.removeLayer(markersAll);
+		map.hasLayer(markersMy) && map.removeLayer(markersMy);
+		map.hasLayer(marker) || map.addLayer(marker);
+		marker.closePopup();
+	});	
+	
 	
 	//show the user' contributions
 	$("#start-menu-my, #navbar-my").click(function(){		
@@ -373,29 +393,27 @@ function initialize() {
 		$("#navbar-my").addClass("ui-btn-active");			
 		
 		//clean map view
-		if (map.hasLayer(markersAll)){
-			map.removeLayer(markersAll);
-		}
-		if (map.hasLayer(markersMy)){
-			map.removeLayer(markersMy);
-		}
-		marker.setIcon(EmoIcon());
-		marker.closePopup();
+		map.hasLayer(markersAll) && map.removeLayer(markersAll);
+		map.hasLayer(markersMy) && map.removeLayer(markersMy);
+		map.hasLayer(marker) && map.removeLayer(marker);
+        
+		//marker.setIcon(EmoIcon());
+		//marker.closePopup();
 		navigator.geolocation.getCurrentPosition(
-		function(position) {
-			curLatLng = [position.coords.latitude, position.coords.longitude];
-			map.panTo(curLatLng);
-			marker.setLatLng (curLatLng);			
-		},
-		function(error) {
-			if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-				navigator.notification.alert("Can not get your current location!", null, "EmoMap", "OK" );
-			}
-			else{	
-				navigator.notification.alert(i18n.t('messages.geolocation-error'), null, "EmoMap", i18n.t('messages.ok') );
-			}
-		},
-		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
+            function(position) {
+                curLatLng = [position.coords.latitude, position.coords.longitude];
+                map.panTo(curLatLng);
+                marker.setLatLng (curLatLng);			
+            },
+            function(error) {
+                if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+                    navigator.notification.alert("Can not get your current location!", null, "EmoMap", "OK" );
+                }
+                else{	
+                    navigator.notification.alert(i18n.t('messages.geolocation-error'), null, "EmoMap", i18n.t('messages.ok') );
+                }
+            },
+            {maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
 		
 		//read data from the local database
@@ -427,14 +445,12 @@ function initialize() {
 	//show all contributions
 	$("#start-menu-all, #navbar-all").click(function(){
 		//clean map view
-		if (map.hasLayer(markersAll)){
-			map.removeLayer(markersAll);
-		}
-		if (map.hasLayer(markersMy)){
-			map.removeLayer(markersMy);
-		}
-		marker.setIcon(EmoIcon());
-		marker.closePopup();
+		map.hasLayer(markersAll) && map.removeLayer(markersAll);
+		map.hasLayer(markersMy) && map.removeLayer(markersMy);
+		map.hasLayer(marker) && map.removeLayer(marker);
+
+		//marker.setIcon(EmoIcon());
+		//marker.closePopup();
 		
 		if (networkState == Connection.NONE){
 			if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
@@ -496,23 +512,6 @@ function initialize() {
 		$("#info").show();	
 		$("#navbar-start,#navbar-my,#navbar-all").removeClass("ui-btn-active");
 		$("#navbar-about").addClass("ui-btn-active");
-		
-		//clean map view
-		if (map.hasLayer(markersAll)){
-			map.removeLayer(markersAll);
-		}
-		if (map.hasLayer(markersMy)){
-			map.removeLayer(markersMy);
-		}
-		marker.closePopup();
-	});	
-	
-	$("#navbar-start").click(function(){
-		//start the main page
-		$("#start-menu, #map").show();
-		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
-		$("#navbar-start").addClass("ui-btn-active");
-		$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		
 		//clean map view
 		if (map.hasLayer(markersAll)){
