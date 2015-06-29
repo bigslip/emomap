@@ -1,21 +1,30 @@
 {
 	"registration":
     {
-        "label": "Welcome to EmoMap! Please answer a few questions to take part.",
+        "label": "Benvenuto su EmoMap! Ti chiediamo di rispondere a qualche domanda.",
 		"gender-label": "Genere",
 		"gender-male": "uomo",
 		"gender-female": "donna",
 		"gender-unknown": "non specificato",
-		"birth-label": "When were you born?",
+		"birth-label": "Dove sei nato/a?",
 		"birth": "Anno di nascita",
 		"work-label": "Lavoro",
 		"work-employed": "impiegato",
 		"work-student": "studente",
-		"work-unemployed": "disoccupato e in ricerca di lavoro",
+		"work-unemployed": "disoccupatos",
 		"work-retired": "pensionato",
 		"work-other": "altro",
-		"agree": "by clicking 'Submit', you accept terms and conditions.",
-		"button": "Register"		
+		"agree": "Cliccando su ‘Registrati’, confermi che:",
+		"confirm1": "Hai almeno 18 anni, e accetti di partecipare all’esperimento.",
+		"confirm2": "TI è chiaro che puoi cancellare la tua registrazione in ogni momento.",
+		"button": "Registrati"		
+    },
+	"navbar":
+    {
+        "add": "Add",
+		"my": "My Map",
+		"all": "Everyone",
+		"about": "About"
     },
     "buttons":
     {
@@ -27,9 +36,9 @@
     },
     "comfort":
     {
-        "label": "Questo posto è:",
-        "uncomfortable": "Confortevole",
-		"comfortable": "Non confortevole"
+        "label": "Qui c’è …",
+        "uncomfortable": "Non confortevole",
+		"comfortable": "Confortevole"
     },
 	"adjective":
     {
@@ -44,10 +53,15 @@
 		"Exciting": "Eccitante",
 		"Frightening": "Spaventoso",
         "Frustrating": "Frustrante",
+		"Harsh": "Harsh",
 		"Hectic": "Frenetico",
 		"Majestic": "Maestoso",
         "Peaceful": "Tranquillo",
-		"Sleepy": "Addormentato"
+		"Sleepy": "Addormentato",
+		"Ugly": "Brutto",
+        "Unstimulating": "Non stimolante",
+		"Insignificant": "Insignificante",
+        "Festive": "Festivo"
     },
 	"context":
     {
@@ -62,17 +76,45 @@
 	"info":
     {
         "header": "About EmoMap",
-        "content": "..."
+        "about": "<b>EmoMap (Emotional Mapping)</b> fa parte di un progetto di ricerca della University of Technology di Vienna, il cui obiettivo è quello di collezionare ed analizzare le risposte emotive/affettive che le persone provano visitando determinati luoghi.<br/>Puoi usare EmoMap anche in modalità offline. Tuttavia, abbiamo caricato solo la mappa dell’area di Como (Italia). Se vuoi usare l’applicazione in altre aree, consigliamo di abilitare la connessione Internet.",
+		"data": "<b>Quali dati verranno condivisi?</b> Mentre registri le tue emozioni, il tuo dispositivo mobile stima la tua posizione geografica. Le tue risposte e le informazioni sulla tua posizione vengono salvate in modo anonimo e inviate ai nostri database. Non salviamo il tuo nome o nessuna altra informazione sensibile. ",
+		"use": "<b>Come usiamo i tuoi dati?</b> I dati vengono utilizzati solo per scopo di ricerca. Il nostro obiettivo è capire cosa provano le persone visitando diversi luoghi, e come queste risposte affettive influenzano il loro comportamento, ad esempio evitando determinati posti.",
+		"thanks": "<b>Ringraziamenti.</b> Un grosso ringraziamento ad Austrian FFG per il finanziamento del progetto EmoMap, a Salzburg Research e a Rittberger+Knapp OG per la loro cooperazione, e ai colleghi del Politecnico di Milano per il loro incoraggiamento e la traduzione in italiano.",
+		"contact": "Per avere altre informazioni su EmoMap, visita <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> o contatta <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. <br/>Grazie per usare EmoMap!"
     },
 	"messages":
     {
-		"registration-form-empty": "Please complete the registration form!",
+		"registration-form-empty": "Completa i tuoi dati!",
         "geolocation-error": "Non troviamo la tua posizione corrente!",
-        "registration-success": "Grazie! Ora puoi iniziare a creare la mappa delle tue emozioni!",
-		"marker-popup": "Not your current location? Drag the marker to correct!",
+        "registration-success": "Grazie per la tua registrazione. Ora puoi iniziare ad usare l’applicazione e a creare la tua mappa di emozioni!",
+		"marker-popup": "Non è la tua posizione corrente? Trascina l’icona per correggerla!",
 		"contribution-success": "Grazie per il tuo contributo!",
-		"allemomap-nointernet": "La tua EmoMap non può essere mostrata perché non sei connesso ad Internet!",
+		"allemomap-nointernet": "L’opzione ‘Everyone’ mappe non può essere mostrata perché la connessione Internet è assente!",
 		"location-enable": "Abilita i servizi di geolocalizzazione!",
-		"ok": "OK"
+		"ok": "OK",
+		"registration-noInternet": "La registrazione è fallita perché la connessione Internet è assente!"
+    },
+	"legend":
+    {
+		"emo1": "very uncomfortable",
+        "emo2": "uncomfortable",
+        "emo3": "slightly uncomfortable",
+		"emo4": "neutral",
+		"emo5": "slightly comfortable",
+		"emo6": "comfortable",
+		"emo7": "very comfortable",
+		"single": "individual contribution",
+		"cluster": "cluster and its size"
+    },
+	"stat":
+    {
+		"total": "In total, you have ",
+        "avg": " contribution(s), and the average emotional rating is ",
+        "scale": " on a scale of 1 (very uncomfortable) to 7 (very comfortable).",
+		"total_all": "In total, there are ",
+		"avg_all": " contribution(s) within 5 km of your current location, and the average emotional rating is ",
+		"nopoint": "No body has added an emotional rating within  5km of your current location.",
+		"nopoint-my": "You have not had any contribution yet!"
     }
+	
 }

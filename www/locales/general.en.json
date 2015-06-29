@@ -10,7 +10,7 @@
 		"birth": "Birth Year",
 		"work-label": "Work Status",
 		"work-employed": "Employed",
-		"work-student": "Full-time education",
+		"work-student": "Student",
 		"work-unemployed": "Unemployed and seeking work",
 		"work-retired": "Retired",
 		"work-other": "Other",
@@ -80,7 +80,7 @@
 		"data": "<b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't store your name or any other identifying information. Therefore, we won't know who you are. ",
 		"use": "<b>How will the data be used?</b> The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places.",
 		"thanks": "<b>Acknowledgments.</b> Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. ",
-		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. "
+		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. <br/>Thank you for using EmoMap!"
     },
 	"messages":
     {
@@ -113,7 +113,8 @@
         "scale": " on a scale of 1 (very uncomfortable) to 7 (very comfortable).",
 		"total_all": "In total, there are ",
 		"avg_all": " contribution(s) within 5km of your current location, and the average emotional rating is ",
-		"nopoint": "No body has added an emotional rating within 5km of your current location."
+		"nopoint": "No body has added an emotional rating within 5km of your current location.",
+		"nopoint-my": "You have not had any contribution yet!"
     }
 	
 }

@@ -216,9 +216,9 @@ function initialize() {
 		zoom: 17
 	});	
 	if (networkState == Connection.NONE){	
-		//L.tileLayer('como1/{z}/{x}/{y}.png', {
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles from <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
+		L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
+		//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
 			maxZoom:17
 		}).addTo(map);		
@@ -429,13 +429,24 @@ function initialize() {
 				emos.push(todo.doc.comfort);
 				ii++;
 			});
-			markersMy = vizEmos(map, locations, emos);
-			if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-				$("#mymap-stat").html ("In total, you have " + ii + " contribution(s), and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/><br/>");
+			markersMy = vizEmos(map, locations, emos, ln.language.code);
+			if (ii!=0){
+				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+					$("#mymap-stat").html ("In total, you have " + ii + " contribution(s), and the average emotional rating is " + (emo_sum*1.0/ii).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable).<br/><br/>");
+				}
+				else{	
+					$("#mymap-stat").html (i18n.t('stat.total') + ii + i18n.t('stat.avg') + (emo_sum*1.0/ii).toFixed(1) + i18n.t('stat.scale')+"<br/><br/>");
+				}
 			}
-			else{	
-				$("#mymap-stat").html (i18n.t('stat.total') + ii + i18n.t('stat.avg') + (emo_sum*1.0/ii).toFixed(1) + i18n.t('stat.scale')+"<br/><br/>");
+			else{
+				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+					$("#mymap-stat").html ("You have not had any contribution yet!<br/><br/>");
+				}
+				else{	
+					$("#mymap-stat").html (i18n.t('stat.nopoint-my') +"<br/><br/>");
+				}	
 			}
+				
 			addLegend(ln.language.code);
 			$("#mymap-stat").show();			
 		});
@@ -500,7 +511,7 @@ function initialize() {
 				locations.push(todo.doc.location);
 				emos.push(todo.doc.comfort);			
 			});	
-			markersAll = vizEmos(map, locations, emos);
+			markersAll = vizEmos(map, locations, emos, ln.language.code);
 			generateAllEmos (curLatLng, locations, emos, ln.language.code); //add stat.
 			addLegend(ln.language.code);
 		});
@@ -633,15 +644,25 @@ function initialize() {
 }
 
 //visualizing emos using marker cluster
-function vizEmos (map, locations, emos){
+function vizEmos (map, locations, emos, lang){
 	var markers = L.markerClusterGroup();	
+	var grades;
+	if(!((lang=="zh")||(lang=="de")||(lang=="it"))){
+		grades= ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"];
+	}
+	else{
+		grades = [i18n.t('legend.emo1'),i18n.t('legend.emo2'),i18n.t('legend.emo3'),i18n.t('legend.emo4'),i18n.t('legend.emo5'),i18n.t('legend.emo6'),i18n.t('legend.emo7')];
+	}
 	for (var i = 0; i < emos.length; i++) {
 		var locationIcon = L.icon({
-			iconUrl: 'css/lib/images/emo'+emos[i].toString()+'.png'		
+			iconUrl: 'css/lib/images/emo24_'+emos[i].toString()+'.png',
+			iconSize: [20,20],
+			iconAnchor: [9,20],
+			popupAnchor: [0,-20]
 		});
 		
 		var marker_emo = L.marker(locations[i], { icon: locationIcon});
-		marker_emo.bindPopup("Level of comfort: " + emos[i].toString());
+		marker_emo.bindPopup(grades[emos[i]-1]);
 		marker_emo.mydata=parseInt(emos[i]);
 		markers.addLayer(marker_emo);
 	}
@@ -663,7 +684,7 @@ function generateAllEmos (curLoc, locations, emos, lang){
 	}
 	if (total_num!=0){
 		if(!((lang=="zh")||(lang=="de")||(lang=="it"))){
-			$("#allmap-stat").html ("In total, there are " + total_num + " contribution(s) within 5km of your current location, and the average emotional rating is " + (total_emo*1.0/total_num).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable)." + "<br/><br/>");
+			$("#allmap-stat").html ("In total, there are " + total_num + " contribution(s) within 5 km of your current location, and the average emotional rating is " + (total_emo*1.0/total_num).toFixed(1) + " on a scale of 1 (very uncomfortable) to 7 (very comfortable)." + "<br/><br/>");
 		}
 		else{	
 			$("#allmap-stat").html (i18n.t('stat.total_all') + total_num + i18n.t('stat.avg_all') + (total_emo*1.0/total_num).toFixed(1) + i18n.t('stat.scale') + "<br/><br/>");

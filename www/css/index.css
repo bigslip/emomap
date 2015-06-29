@@ -35,7 +35,7 @@ h1 {
 #main-page {
     padding: 0;
     height: 100%;
-    overflow: hidden; /* change to auto when too much info text */
+    /*overflow: hidden;  change to auto when too much info text */
 }
 .header-logo {
     width: 100%;
@@ -114,7 +114,7 @@ h1 {
 
 #info {
 	display: none;
-	padding:10px;
+	padding:5px;
 }
 #text_about {
 	font-size:12px;	
@@ -125,7 +125,7 @@ h1 {
     color: #555;
 	background-color: rgba(255,255,255,0.9);
 	display:none;
-	padding:8px;
+	padding:3px;
 }
 .legend i {
     width: 10px;
