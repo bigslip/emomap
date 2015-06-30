@@ -116,7 +116,7 @@ h1 {
 	display: none;
 	padding:5px;
 }
-#text_about {
+.text_about {
 	font-size:12px;	
 }
 
@@ -194,6 +194,33 @@ h1 {
     right: 0%;
 }
 
+/* Tablets in portrait mode */
+@media (min-height: 800px) {
+	.legend {
+		font-size: 14px;
+	}
+	.legend-images{
+		width: 15px;
+		height:15px;
+	}
+	body {
+		font-size:15px;
+	}
+	.text_about {
+		font-size:15px;	
+	}
+}
+
+/* Tablets in portrait mode */
+@media (max-height: 520px) {
+	body, input, select, textarea, button, .ui-btn {
+		line-height:0.5;
+	}
+	#mymap-stat,#allmap-stat, .text_about,#start-page, #gender-button, #birthyear-button, #workstatus-button, #adj-button{
+		line-height:1;
+	}
+ 
+}
 
 /* Landscape layout */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {

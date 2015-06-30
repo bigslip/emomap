@@ -1,120 +1,120 @@
 {
 	"registration":
     {
-        "label": "Welcome to EmoMap! Please answer a few questions to take part.",
-		"gender-label": "Gender",
-		"gender-male": "Male",
-		"gender-female": "Female",
-		"gender-unknown": "Prefer not to say",
-		"birth-label": "When were you born?",
-		"birth": "Birth Year",
-		"work-label": "Work Status",
-		"work-employed": "Employed",
-		"work-student": "Full-time education",
-		"work-unemployed": "Unemployed and seeking work",
-		"work-retired": "Retired",
-		"work-other": "Other",
-		"agree": "by tagging 'Register', you confirm that:",
-		"confirm1": "You are older than 18, and you agree to take part in the study.",
-		"confirm2": "You understand that you can withdraw at any time.",
-		"button": "Register"		
+        "label": "Willkommen bei EmoMap! Um teilzunehmen, beantworten Sie bitte die folgenden Fragen.",
+		"gender-label": "Geschlecht",
+		"gender-male": "Mann",
+		"gender-female": "Frau",
+		"gender-unknown": "keine Angabe",
+		"birth-label": "Ihr Geburtsjahr",
+		"birth": "Geburtsjahr",
+		"work-label": "Beschäftigung",
+		"work-employed": "erwerbstätig",
+		"work-student": "in Ausbildung",
+		"work-unemployed": "arbeitssuchend",
+		"work-retired": "pensioniert",
+		"work-other": "sonstiges",
+		"agree": "Bei Klick auf 'Registrieren' stimmen Sie mit dem Folgenden überein:",
+		"confirm1": "Sie sind älter als 18 und stimmen der Teilnahme am Forschungsprojekt EmoMap zu.",
+		"confirm2": "Sie sind sich bewusst, dass Sie die Teilnahme jederzeit abbrechen können.",
+		"button": "Registrieren"		
     },
 	"navbar":
     {
-        "add": "Add",
-		"my": "My Map",
-		"all": "All Map",
-		"about": "About"
+        "add": "Bewerten",
+		"my": "Meine",
+		"all": "Alle",
+		"about": "Über"
     },
     "buttons":
     {
-        "contribute": "How do you like this place?",
-		"cancel": "Cancel",
-		"next": "Next",
-		"back": "Back",
-		"submit": "Submit"
+        "contribute": "Wie empfindest du diesen Ort?",
+		"cancel": "Abbrechen",
+		"next": "Nächste",
+		"back": "Zurück",
+		"submit": "Senden"
     },
     "comfort":
     {
-        "label": "Here it is ...",
-        "uncomfortable": "uncomfortable",
-		"comfortable": "comfortable"
+        "label": "Hier ist es …",
+        "uncomfortable": "unangenehm",
+		"comfortable": "angenehm"
     },
 	"adjective":
     {
-        "label": "This place is:",
-        "Active": "Active",
-		"Beautiful": "Beautiful",
-		"Boring": "Boring",
-        "Comfortable": "Comfortable",
-		"Desolate": "Desolate",
-		"Disgusting": "Disgusting",
-        "Enjoyable": "Enjoyable",
-		"Exciting": "Exciting",
-		"Frightening": "Frightening",
-        "Frustrating": "Frustrating",
-		"Harsh": "Harsh",
-		"Hectic": "Hectic",
-		"Majestic": "Majestic",
-        "Peaceful": "Peaceful",
-		"Sleepy": "Sleepy",
-		"Ugly": "Ugly",
-        "Unstimulating": "Unstimulating",
-		"Insignificant": "Insignificant",
-        "Festive": "Festive"
+        "label": "Dieser Ort ist …",
+        "Active": "aktiv",
+		"Beautiful": "schön",
+		"Boring": "langweilig",
+        "Comfortable": "angenehm",
+		"Desolate": "trostlos",
+		"Disgusting": "ekelhaft",
+        "Enjoyable": "unterhaltsam",
+		"Exciting": "aufregend",
+		"Frightening": "beängstigend",
+        "Frustrating": "frustrierend",
+		"Harsh": "rau",
+		"Hectic": "hektisch",
+		"Majestic": "majestätisch",
+        "Peaceful": "friedlich",
+		"Sleepy": "verschlafen",
+		"Ugly": "hässlich",
+        "Unstimulating": "nicht anregend",
+		"Insignificant": "belanglos",
+        "Festive": "festlich"
     },
 	"context":
     {
-        "label": "I'm here ...",
-        "alone": "alone",
-		"adult": "with adult(s)",
-		"child": "with child(ren)",
-		"dog": "with dog(s)",
-		"firsttime": "for the first time",
-		"moreoften": "more often"
+        "label": "Ich bin hier ...",
+        "alone": "allein",
+		"adult": "mit Erwachsenen",
+		"child": "mit Kind(ern)",
+		"dog": "mit Hund(en)",
+		"firsttime": "zum ersten Mal",
+		"moreoften": "öfters"
     },
 	"info":
     {
-        "header": "About EmoMap",
-        "about": "<b>EmoMap (Emotional Mapping)</b> is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environments.<br/>You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.",
-		"data": "<b>What data will I be sharing?</b> While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't store your name or any other identifying information. Therefore, we won't know who you are. ",
-		"use": "<b>How will the data be used?</b> The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places.",
-		"thanks": "<b>Acknowledgments.</b> Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. ",
-		"contact": "For more information regarding EmoMap, please visit <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> or contact <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. "
+        "header": "Über EmoMap",
+        "about": "<b>EmoMap (Emotional Mapping)</b> ist Teil eines Forschungsprojekts der Technischen Universität Wien zur Untersuchung der emotionalen Raumwahrnehmung in unterschiedlichen Umgebungen.<br/>Sie können EmoMap auch offline verwenden. Derzeit sind jedoch nur Kartendaten für die Region Como (Italien) offline verfügbar. In anderen Orten wird derzeit eine Internetverbindung benötigt.",
+		"data": "<b>Welche Daten sendet die App?</b> Die App speichert Ihre Profilangaben, Ihre Raumbewertungen sowie die GPS-Koordinate Ihres Smartphones und sendet diese gesichert an unsere Datenbank. Wir speichern keine Namen oder andere Informationen, die Ihrer Identifizierung dienen.",
+		"use": "<b>Wie werden die Daten verwendet?</b> Die Datenerhebung dient ausschließlich der universitären Forschung. Wir untersuchen, wie Umgebungen wahrgenommen werden und welchen Einfluss dies auf unser Verhalten hat, beispielsweise in Form der Vermeidung bestimmter Orte.",
+		"thanks": "<b>Danksagung.</b> Das Projekt EmoMap wurde im Rahmen der FFG-Förderschiene ways2go unterstützt. Wir bedanken uns bei unseren Projektpartnern Salzburg Research und Rittberger+Knapp OG. Danke außerdem an unsere KollegInnen am Polytechnikum Mailand für Ihre Unterstützung und die italienische Übersetzung der App.",
+		"contact": "Weitere Informationen über EmoMap erhalten Sie auf <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a>. Bei Fragen kontaktieren Sie bitte <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. <br/>Danke für die Verwendung von EmoMap!"
     },
 	"messages":
     {
-		"registration-form-empty": "Please complete the registration form!",
-        "geolocation-error": "Can not get your current location!",
-        "registration-success": "Thank you for your registration! Now you can start to contribute and create your emotional map!",
-		"marker-popup": "Not your current location? Drag the marker to correct!",
-		"contribution-success": "Thank you very much for the contribution!",
-		"allemomap-nointernet": "The 'All Map' can not be shown due to no Internet Connection!",
-		"location-enable": "Please enable your location services!",
+		"registration-form-empty": "Bitte vervollständigen Sie die Angaben.",
+        "geolocation-error": "Ihr Standort kann nicht ermittelt werden!",
+        "registration-success": "Danke für Ihre Registrierung! Sie können nun mit dem Bewerten von Orten beginnen.",
+		"marker-popup": "Nicht Ihr Standort? Verschieben Sie den Marker.",
+		"contribution-success": "Vielen Dank für Ihre Bewertung!",
+		"allemomap-nointernet": "Keine Internetverbindung: Die Karte mit allen Beiträgen kann nicht geladen werden.",
+		"location-enable": "Bitte aktivieren Sie Ihre Lokalisierungservices.",
 		"ok": "OK",
-		"registration-noInternet": "Registration fails due to no Internet connection!"
+		"registration-noInternet": "Keine Internetverbindung: Die Registrierung kann nicht abgeschlossen werden."
     },
 	"legend":
     {
-		"emo1": "very uncomfortable",
-        "emo2": "uncomfortable",
-        "emo3": "slightly uncomfortable",
+		"emo1": "sehr unangenehm",
+        "emo2": "unangenehm",
+        "emo3": "etwas unangenehm",
 		"emo4": "neutral",
-		"emo5": "slightly comfortable",
-		"emo6": "comfortable",
-		"emo7": "very comfortable",
-		"single": "individual contribution",
-		"cluster": "cluster and its size"
+		"emo5": "etwas angenehm",
+		"emo6": "angenehm",
+		"emo7": "sehr angenehm",
+		"single": "Einzelne Bewertung",
+		"cluster": "Mehrere Bewertungen"
     },
 	"stat":
     {
-		"total": "In total, you have ",
-        "avg": " contribution(s), and the average emotional rating is ",
-        "scale": " on a scale of 1 (very uncomfortable) to 7 (very comfortable).",
-		"total_all": "In total, there are ",
-		"avg_all": " contribution(s) within 5km of your current location, and the average emotional rating is ",
-		"nopoint": "No body has added an emotional rating within 5km of your current location."，
-		"nopoint-my": "You have not had any contribution yet!"
+		"total": "",
+        "avg": " Bewertungen, durchschnittliche emotionale Bewertung: ",
+        "scale": " auf einer Skala von 1 (sehr unangenehm) bis 7 (sehr angenehm)",
+		"total_all":"Insgesamt ",
+		"avg_all": " Bewertungen im Umkreis von 5 km ihrem aktuellen Standort. Durchschnittliche emotionale Bewertung:",
+		"nopoint": "Im Umkreis von 5 km hat noch niemand hat eine Bewertung abgegeben.",
+		"nopoint-my": "Sie haben noch keine Bewertung abgegeben."
     }
 	
 }

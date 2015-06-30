@@ -1,11 +1,11 @@
 {
 	"registration":
     {
-        "label": "非常感谢您下载EmoMap！开始使用之前，请您提供一些信息。",
+        "label": "非常感谢您使用EmoMap！开始使用之前，请您提供一些信息。",
 		"gender-label": "性别",
 		"gender-male": "男",
 		"gender-female": "女",
-		"gender-unknown": "不想说",
+		"gender-unknown": "不详",
 		"birth-label": "出生年份",
 		"birth": "出生年份",
 		"work-label": "职业",
@@ -43,31 +43,31 @@
 	"adjective":
     {
         "label": "这里是...",
-        "Active": "Active",
-		"Beautiful": "Beautiful",
-		"Boring": "Boring",
-        "Comfortable": "Comfortable",
-		"Desolate": "Desolate",
-		"Disgusting": "Disgusting",
-        "Enjoyable": "Enjoyable",
-		"Exciting": "Exciting",
-		"Frightening": "Frightening",
-        "Frustrating": "Frustrating",
-		"Harsh": "Harsh",
-		"Hectic": "Hectic",
-		"Majestic": "Majestic",
-        "Peaceful": "Peaceful",
-		"Sleepy": "Sleepy",
-		"Ugly": "Ugly",
-        "Unstimulating": "Unstimulating",
-		"Insignificant": "Insignificant",
-        "Festive": "Festive"
+        "Active": "活跃的",
+		"Beautiful": "漂亮的",
+		"Boring": "无聊",
+        "Comfortable": "令人愉快的",
+		"Desolate": "荒凉的",
+		"Disgusting": "令人讨厌的",
+        "Enjoyable": "有乐趣的",
+		"Exciting": "令人兴奋的",
+		"Frightening": "令人恐惧的",
+        "Frustrating": "令人泄气的",
+		"Harsh": "严酷的",
+		"Hectic": "忙碌的",
+		"Majestic": "雄伟的",
+        "Peaceful": "和平的",
+		"Sleepy": "令人乏困的",
+		"Ugly": "丑陋的",
+        "Unstimulating": "无法激励人心的",
+		"Insignificant": "微不足道的",
+        "Festive": "欢乐的"
     },
 	"context":
     {
         "label": "我在这里 ...",
         "alone": "独自一人",
-		"adult": "和其他人",
+		"adult": "和其他人一起",
 		"child": "和小孩子一起",
 		"dog": "遛着狗",
 		"firsttime": "第一次在这里",
@@ -76,11 +76,11 @@
 	"info":
     {
         "header": "关于EmoMap",
-        "about": "<b>EmoMap (Emotional Mapping)</b> 是is part of a research project at the Vienna University of Technology, Austria, which aims to collect people's affective/emotional responses towards different environment.<br/>You can use EmoMap in an offline manner, however, we currently only cache the map data of the Como area (Italy). For other areas, we recommend to enable the Internet connection.",
-		"data": "<b>What data will I be sharing?</b> 当While you report your feelings, your mobile phone's GPS estimates your current location. Your answers and location information are then anonymously and securely sent to our database. We don't ask for your name or any other identifying information. Therefore, we won't know who you are. ",
-		"use": "<b>How will the data be used?</b> 这些数据The data contributed are solely used for academic research purposes. We aim to investigate how people affectively response to different environments, and how these affective responses influence their behaviors, e.g, approaching or avoiding particular places.",
-		"thanks": "<b>Acknowledgments.</b> 非常感谢Big thanks should be given to Austrian FFG for funding the EmoMap project, to Salzburg Research and Rittberger+Knapp OG for their cooperation in the project, as well as to colleagues from Politecnico di Milano for their encouragement and Italian translation. ",
-		"contact": "了解更多信息，请浏览 <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> 或者联系 <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. <br/>谢谢您的关注！"
+        "about": "<b>EmoMap (Emotional Mapping)</b>隶属于奥地利维也纳技术大学的一个科研项目。这个项目重点集中在研究人们对不同环境的情感反应。",
+		"data": "<b>这个项目将会收集什么样的信息？</b> 当您在提供对环境的感受时，您的手机的GPS将会自动获取当前位置。这些匿名的信息将会被安全的传输到我们的数据库服务器。",
+		"use": "<b>利用收集到的数据将会怎么样？</b> 这些数据将只会用在科学研究中。目前，我们想通过这些数据去研究人在不同的环境下有怎么样的不同情感反应，并且分析这些不同的情感反应如何影响人的空间行为，例如故意避开某些地方，或者接近某些地方。",
+		"thanks": "<b>致谢。</b> 非常感谢奥地利研究促进局（FFG）的资金资助、Salzburg Research和Rittberger+Knapp OG的通力合作和Politecnico di Milano的同事的大力支持及提供的意大利文翻译。",
+		"contact": "了解更多信息，请浏览 <a href='http://cartography.tuwien.ac.at'>cartography.tuwien.ac.at</a> 或者联系 <a href='mailto:apps@cartography.tuwien.ac.at'>apps@cartography.tuwien.ac.at</a>. <br/>谢谢您使用EmoMap！"
     },
 	"messages":
     {
@@ -88,8 +88,8 @@
         "geolocation-error": "无法获取您的当前位置信息!",
         "registration-success": "谢谢您！您现在可以开始创建您的情感地图（EmoMap）了!",
 		"marker-popup": "不是你的当前位置? 拖动图标进行调整!",
-		"contribution-success": "非常感谢您的贡献!",
-		"allemomap-nointernet": "由于没有网络连接，“所有人的地图All Map”已被禁用!",
+		"contribution-success": "非常感谢您的情感反馈!",
+		"allemomap-nointernet": "由于没有网络连接，这个功能已被禁用!",
 		"location-enable": "请启用位置服务!",
 		"ok": "好",
 		"registration-noInternet": "由于没有网络连接，注册失败!"
@@ -103,17 +103,17 @@
 		"emo5": "稍微令人愉快的",
 		"emo6": "令人愉快的",
 		"emo7": "非常令人愉快的",
-		"single": "一个贡献",
-		"cluster": "贡献聚类"
+		"single": "一个情感反馈",
+		"cluster": "情感反聩聚类"
     },
 	"stat":
     {
 		"total": "您总共有",
-        "avg": " 个贡献。它们的平均值为 ",
-        "scale": " 在1（“非常令人不愉快的”）到7（“非常令人愉快的”）的尺度上。",
+        "avg": " 个情感发聩。它们的平均值为 ",
+        "scale": "。它落在1（“非常令人不愉快的”）到7（“非常令人愉快的”）的尺度上。",
 		"total_all": "在周围5公里以内，总共有 ",
-		"avg_all": " 个贡献。 它们的平均值为 ",
-		"nopoint": "周围5公里以内还没有任何贡献。",
-		"nopoint-my": "您还没有任何贡献!"
+		"avg_all": " 个情感反馈。 它们的平均值为 ",
+		"nopoint": "周围5公里以内还没有任何情感反馈。",
+		"nopoint-my": "您还没有提供任何情感反馈!"
     }	
 }

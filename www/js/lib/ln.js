@@ -45,7 +45,6 @@ var ln =
 			if((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it")){				
                 i18n.setLng(ln.language.code, function(t)
                 {	
-				
                     $('body').i18n();
 					//add this to refresh selectmenu
 					$( "#adj" ).selectmenu( "refresh", true);

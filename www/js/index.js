@@ -548,7 +548,7 @@ function initialize() {
 		$("#checkbox-adj").show();
 		
 		if(adj=="")
-		$("#adj_next").addClass("ui-disabled");//disable "next"
+			$("#adj_next").addClass("ui-disabled");//disable "next"
 	});
 	
 	$("#adj_back").click(function(){
@@ -702,12 +702,12 @@ function generateAllEmos (curLoc, locations, emos, lang){
 }
 
 //add legend: for my map and all map
-function addLegend (lang){
+function addLegend (lang){	
 		var grades, innerhtml="";
 		if(!((lang=="zh")||(lang=="de")||(lang=="it"))){
 			grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"];
-			innerhtml +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> individual contribution<br/>';
-			innerhtml +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/>cluster and its size<br/><br/>';
+			innerhtml +='<img src="css/lib/images/emo24_4.png" class="legend-images" alt="contribution" style="width:10px;height:10px;"/> individual contribution<br/>';
+			innerhtml +='<img src="css/lib/images/circle.png" class="legend-images" alt="cluster" style="width:10px;height:10px;"/>cluster and its size<br/><br/>';
 		}
 		else{			
 			grades = [i18n.t('legend.emo1'),i18n.t('legend.emo2'),i18n.t('legend.emo3'),i18n.t('legend.emo4'),i18n.t('legend.emo5'),i18n.t('legend.emo6'),i18n.t('legend.emo7')];
@@ -720,6 +720,8 @@ function addLegend (lang){
 			grades[i] + (i!=0 ? '<br>' : '');
 		}	
 		$(".legend").html(innerhtml);
+		//$(".legend").css({"line-height": lineheight, "font-size": fontsize});
+		//$(".legend i").css({"width": lineheight, "height":lineheight});
 }
 function getColor(d) {
 		return d == 1  ? 'rgba(247, 49, 40, 0.8)' :
