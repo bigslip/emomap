@@ -56,16 +56,7 @@ function initialize() {
 	//device information, network status, gps location
 	var uuid = device.uuid;
 	var networkState = navigator.connection.type;
-	document.addEventListener("offline", onOffline, false);
-	function onOffline() {
-		// Handle the offline event
-		networkState = navigator.connection.type;
-	}
-	document.addEventListener("online", onOnline, false);
-	function onOnline() {
-		// Handle the online event
-		networkState = navigator.connection.type;
-	}
+	
 	
 	//need to check GPS is enabled or not
 	navigator.geolocation.getCurrentPosition(
@@ -93,8 +84,8 @@ function initialize() {
 	//pouchdb setting
 	var markersMy, markersAll;	
 	var db = new PouchDB('emomap_'+uuid,{auto_compaction:true});
-	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_'+uuid;
-	var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_all';	
+	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080emomap_'+uuid;
+	var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_all';	
 	db.changes({
 		since: 'now',
 		live: true
@@ -160,7 +151,7 @@ function initialize() {
 			return;
 		}
 	
-		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:5984/emomap_user');
+		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_user');
 		var timestamp= new Date().toISOString();		
 		db_users.get(uuid).then(function (doc) {
 			//if existed, update the user
@@ -214,19 +205,74 @@ function initialize() {
 	var map = L.map('map', {
 		center: curLatLng,
 		zoom: 17
-	});	
+	});		
+	
+	var tilelayer;
+	
 	if (networkState == Connection.NONE){	
-		L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
-		//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		//tilelayer = L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
+		tilelayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
-			maxZoom:17
-		}).addTo(map);		
+			maxZoom:17,
+			errorTileUrl:'como_tiles/error-tile.png'
+		});
+		tilelayer.addTo(map);		
 	}
 	else{
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'			
-		}).addTo(map);		
+		//tilelayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		tilelayer = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+			//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
+			minZoom:12,
+			maxZoom:17, 
+			subdomains:'1234',
+			errorTileUrl:'como_tiles/error-tile.png'
+		});
+		tilelayer.addTo(map);		
+	}
+	
+	//add offline/online events
+	document.addEventListener("offline", onOffline, false);
+	function onOffline() {
+		// Handle the offline event， change to offline map
+		networkState = navigator.connection.type;
+		map.removeLayer(tilelayer);
+		//tilelayer=L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
+		tilelayer=L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
+			minZoom:12,
+			maxZoom:17,
+			errorTileUrl:'como_tiles/error-tile.png'
+		});
+		tilelayer.addTo(map);	
+		
+	}
+	document.addEventListener("online", onOnline, false);
+	function onOnline() {
+		// Handle the online event, change to online map
+		networkState = navigator.connection.type;
+		map.removeLayer(tilelayer);
+		//tilelayer=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		tilelayer=L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+			//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
+			minZoom:12,
+			maxZoom:17, 
+			subdomains:'1234',
+			errorTileUrl:'como_tiles/error-tile.png'
+		});
+		tilelayer.addTo(map);
+		
+		if (remoteUserCouch) {
+			var opts = {live: true};
+			db.replicate.to(remoteUserCouch, opts, syncError);		
+			db.replicate.from(remoteUserCouch, opts, syncError);
+			db.replicate.to(remoteAllCouch, opts, syncError);
+		}
+		function syncError() {
+			//console.log('There was some form or error syncing!');
+		}
 	}
 		
 	var MARKER_SIZE = 0.4;	
