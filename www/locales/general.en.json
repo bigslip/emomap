@@ -23,7 +23,7 @@
     {
         "add": "Add",
 		"my": "My Map",
-		"all": "Everone",
+		"all": "Everyone",
 		"about": "About"
     },
     "buttons":
@@ -89,7 +89,7 @@
         "registration-success": "Thank you for your registration! Now you can start to contribute and create your emotional map!",
 		"marker-popup": "Not your current location? Drag the marker to correct!",
 		"contribution-success": "Thank you very much for the contribution!",
-		"allemomap-nointernet": "The 'All Map' can not be shown due to no Internet Connection!",
+		"allemomap-nointernet": "The map displaying all people's contributions can not be shown due to no Internet Connection!",
 		"location-enable": "Please enable your location services!",
 		"ok": "OK",
 		"registration-noInternet": "Registration fails due to no Internet connection!"

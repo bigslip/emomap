@@ -23,12 +23,6 @@
 	
 	<preference name="Orientation" value="portrait" />
 	<preference name="DisallowOverscroll" value="true"/>
-	
-	<icon src="www/img/emo_klein.png" width="57" height="57"/>
-	<icon src="www/img/emo_klein.png" platform="android" density="ldpi" />
-	<icon src="www/img/emo_klein.png" platform="android" density="mdpi" />
-	<icon src="www/img/emo_klein.png" platform="android" density="hdpi" />
-	<icon src="www/img/emo_klein.png" platform="android" density="xhdpi" />
     
     <platform name="android">
         <allow-intent href="market:*" />

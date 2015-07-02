@@ -55,8 +55,7 @@ function initialize() {
 	
 	//device information, network status, gps location
 	var uuid = device.uuid;
-	var networkState = navigator.connection.type;
-	
+	var networkState = navigator.connection.type;	
 	
 	//need to check GPS is enabled or not
 	navigator.geolocation.getCurrentPosition(
@@ -84,7 +83,7 @@ function initialize() {
 	//pouchdb setting
 	var markersMy, markersAll;	
 	var db = new PouchDB('emomap_'+uuid,{auto_compaction:true});
-	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080emomap_'+uuid;
+	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_'+uuid;
 	var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_all';	
 	db.changes({
 		since: 'now',
@@ -210,9 +209,9 @@ function initialize() {
 	var tilelayer;
 	
 	if (networkState == Connection.NONE){	
-		//tilelayer = L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
-		tilelayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
+		tilelayer = L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
+		//tilelayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a><img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
 			maxZoom:17,
 			errorTileUrl:'como_tiles/error-tile.png'
@@ -222,7 +221,6 @@ function initialize() {
 	else{
 		//tilelayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		tilelayer = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
 			maxZoom:17, 
@@ -238,8 +236,8 @@ function initialize() {
 		// Handle the offline event， change to offline map
 		networkState = navigator.connection.type;
 		map.removeLayer(tilelayer);
-		//tilelayer=L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
-		tilelayer=L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+		tilelayer=L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
+		//tilelayer=L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
 			maxZoom:17,
@@ -253,9 +251,7 @@ function initialize() {
 		// Handle the online event, change to online map
 		networkState = navigator.connection.type;
 		map.removeLayer(tilelayer);
-		//tilelayer=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		tilelayer=L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			//attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
 			minZoom:12,
 			maxZoom:17, 
@@ -300,7 +296,6 @@ function initialize() {
 	marker.on('dragend', function(event) {
 		var latLng = event.target.getLatLng();  
 		curLatLng = [latLng.lat, latLng.lng];
-		//console.log(curLatLng);		
 	});
 	
 	//add locate me control
@@ -312,47 +307,12 @@ function initialize() {
 		showPopup: false,
 		originalMarker: marker,
 		onLocationError: function(err) {
-			//alert(err.message)
 		},  // define an error callback function, update the alert message.
 		onLocationOutsideMapBounds:  function(context) { // called when outside map boundaries
 		},
 		locateOptions: {enableHighAccuracy: true, maximumAge: 3000,timeout:10000,watch:false}
 	}).addTo(map);
-	
-	/*
-	//add legend: for my map and all map only
-	var legend = L.control({position: 'topright'});	
-	legend.onAdd = function (map) {		
-		var div = L.DomUtil.create('div', 'legend');
-		var grades;
-		if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-			grades = ["very uncomfortable", "uncomfortable", "slightly uncomfortable", "neutral", "slightly comfortable", "comfortable", "very comfortable"];
-			div.innerHTML +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> individual contribution<br/>';
-			div.innerHTML +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/>cluster and its size<br/><br/>';
-		}
-		else{			
-			grades = [i18n.t('legend.emo1'),i18n.t('legend.emo2'),i18n.t('legend.emo3'),i18n.t('legend.emo4'),i18n.t('legend.emo5'),i18n.t('legend.emo6'),i18n.t('legend.emo7')];
-			div.innerHTML +='<img src="css/lib/images/emo4.png" alt="contribution" style="width:10px;height:10px;"/> '+ i18n.t('legend.single')+ '<br/>';
-			div.innerHTML +='<img src="css/lib/images/circle.png" alt="cluster" style="width:10px;height:10px;"/>'+ i18n.t('legend.single')+'<br/><br/>';
-		}
-		for (var i = grades.length-1; i >=0; i--) {
-			div.innerHTML +=
-			'<i style="background:' + getColor(i+1) + '"></i> ' +
-			grades[i] + (i!=0 ? '<br>' : '');
-		}		
-		return div;
-	};
-	function getColor(d) {
-		return d == 1  ? 'rgba(247, 49, 40, 0.8)' :
-		d == 2  ? 'rgba(253, 119, 0, 0.8)' :
-		d == 3  ? 'rgba(253, 223, 60, 0.8)' :
-		d == 4  ? 'rgba(180, 180, 180, 0.8)' :
-		d == 5  ? 'rgba(214, 239, 138, 0.8)' :
-		d == 6  ? 'rgba(144, 209, 50, 0.8)' :
-		'rgba(0, 154, 0, 0.8)';
-	}	
-	legend.addTo(map);
-	*/
+		
 	//add legend: for my map and all map only
 	var legend = L.control({position: 'topright'});	
 	legend.onAdd = function (map) {		
@@ -511,7 +471,7 @@ function initialize() {
 		
 		if (networkState == Connection.NONE){
 			if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-				navigator.notification.alert("The 'All Map' can not be shown due to no Internet Connection!", null, "EmoMap", "OK" );
+				navigator.notification.alert("The map displaying all people's contributions can not be shown due to no Internet Connection!", null, "EmoMap", "OK" );
 			}
 			else{	
 				navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "EmoMap", i18n.t('messages.ok') );
@@ -635,7 +595,7 @@ function initialize() {
 		};
 		db.put(emo, function callback(err, result) {
 			if (!err) {
-				console.log('Successfully posted a todo!');
+				//console.log('Successfully posted a todo!');
 			}
 		});
 		
@@ -717,8 +677,7 @@ function vizEmos (map, locations, emos, lang){
 }
 
 //generating all emomap stat. : for all emomap
-function generateAllEmos (curLoc, locations, emos, lang){
-	
+function generateAllEmos (curLoc, locations, emos, lang){	
 	var total_emo=0, total_num=0;	
 	var latlng_current = L.latLng(curLoc[0], curLoc[1]);
 	for (var i = 0; i < emos.length; i++) {
