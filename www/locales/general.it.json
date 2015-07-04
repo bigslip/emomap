@@ -11,7 +11,7 @@
 		"work-label": "Lavoro",
 		"work-employed": "impiegato",
 		"work-student": "studente",
-		"work-unemployed": "disoccupatos",
+		"work-unemployed": "disoccupato",
 		"work-retired": "pensionato",
 		"work-other": "altro",
 		"agree": "Cliccando su ‘Registrati’, confermi che:",
@@ -36,7 +36,7 @@
     },
     "comfort":
     {
-        "label": "Qui c’è ...",
+        "label": "Qui è ...",
         "uncomfortable": "Non confortevole",
 		"comfortable": "Confortevole"
     },

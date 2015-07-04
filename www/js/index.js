@@ -82,9 +82,10 @@ function initialize() {
 	
 	//pouchdb setting
 	var markersMy, markersAll;	
-	var db = new PouchDB('emomap_'+uuid,{auto_compaction:true});
-	var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_'+uuid;
-	var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_all';	
+	var db = new PouchDB('emomap_local',{auto_compaction:true});
+	//var remoteUserCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_'+uuid;
+	//var remoteAllCouch = 'http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_all';
+	var remoteAllCouch = 'http://web:emomap@128.130.178.154:8080/emomap_alltry';
 	db.changes({
 		since: 'now',
 		live: true
@@ -92,10 +93,10 @@ function initialize() {
 		// handle change
 	});
 	
-	if (remoteUserCouch) {
+	if (remoteAllCouch) {
 		var opts = {live: true};
-		db.replicate.to(remoteUserCouch, opts, syncError);		
-		db.replicate.from(remoteUserCouch, opts, syncError);
+		//db.replicate.to(remoteUserCouch, opts, syncError);		
+		//db.replicate.from(remoteUserCouch, opts, syncError);
 		db.replicate.to(remoteAllCouch, opts, syncError);
 	}
 	function syncError() {
@@ -150,7 +151,8 @@ function initialize() {
 			return;
 		}
 	
-		var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_user');
+		//var db_users = new PouchDB('http://emomap:Carto126.1040w,y@128.130.178.154:8080/emomap_user');
+		var db_users = new PouchDB('http://web:emomap@128.130.178.154:8080/emomap_usertry');
 		var timestamp= new Date().toISOString();		
 		db_users.get(uuid).then(function (doc) {
 			//if existed, update the user
@@ -211,8 +213,8 @@ function initialize() {
 	if (networkState == Connection.NONE){	
 		tilelayer = L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
 		//tilelayer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a><img height="8" width="8" src="img/mq_logo.png">',
-			minZoom:12,
+			attribution: '&copy;OpenStreetMap, Tiles: MapQuest<img height="8" width="8" src="img/mq_logo.png">',
+			//minZoom:12,
 			maxZoom:17,
 			errorTileUrl:'como_tiles/error-tile.png'
 		});
@@ -221,8 +223,8 @@ function initialize() {
 	else{
 		//tilelayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		tilelayer = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
-			minZoom:12,
+			attribution: '&copy;OpenStreetMap, Tiles: MapQuest<img height="8" width="8" src="img/mq_logo.png">',
+			//minZoom:12,
 			maxZoom:17, 
 			subdomains:'1234',
 			errorTileUrl:'como_tiles/error-tile.png'
@@ -238,13 +240,12 @@ function initialize() {
 		map.removeLayer(tilelayer);
 		tilelayer=L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
 		//tilelayer=L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
-			minZoom:12,
+			attribution: '&copy;OpenStreetMap, Tiles: MapQuest<img height="8" width="8" src="img/mq_logo.png">',
+			//minZoom:12,
 			maxZoom:17,
 			errorTileUrl:'como_tiles/error-tile.png'
 		});
-		tilelayer.addTo(map);	
-		
+		tilelayer.addTo(map);
 	}
 	document.addEventListener("online", onOnline, false);
 	function onOnline() {
@@ -252,18 +253,18 @@ function initialize() {
 		networkState = navigator.connection.type;
 		map.removeLayer(tilelayer);
 		tilelayer=L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>, Tiles: <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img height="8" width="8" src="img/mq_logo.png">',
-			minZoom:12,
+			attribution: '&copy;OpenStreetMap, Tiles: MapQuest<img height="8" width="8" src="img/mq_logo.png">',
+			//minZoom:12,
 			maxZoom:17, 
 			subdomains:'1234',
 			errorTileUrl:'como_tiles/error-tile.png'
 		});
 		tilelayer.addTo(map);
 		
-		if (remoteUserCouch) {
+		if (remoteAllCouch) {
 			var opts = {live: true};
-			db.replicate.to(remoteUserCouch, opts, syncError);		
-			db.replicate.from(remoteUserCouch, opts, syncError);
+			//db.replicate.to(remoteUserCouch, opts, syncError);		
+			//db.replicate.from(remoteUserCouch, opts, syncError);
 			db.replicate.to(remoteAllCouch, opts, syncError);
 		}
 		function syncError() {
@@ -321,9 +322,9 @@ function initialize() {
 	};	
 	legend.addTo(map);
 	
-	
+	var toShowPopup = false;
 	$("#start-menu-contribute").click(function(){
-
+		toShowPopup = true;
 		map.hasLayer(markersAll) && map.removeLayer(markersAll);
 		map.hasLayer(markersMy) && map.removeLayer(markersMy);
 		map.hasLayer(marker) || map.addLayer(marker);
@@ -341,18 +342,24 @@ function initialize() {
 		$("#checkbox-h-2a").prop("checked",true).checkboxradio("refresh");
 		$("#checkbox-h-2b,#checkbox-h-2c,#checkbox-h-2d").prop("checked",false).checkboxradio("refresh");		
 		$("#radio-choice-21").prop("checked",true).checkboxradio("refresh"); 
-		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 		
+		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 	
+		
 		navigator.geolocation.getCurrentPosition(
 		function(position) {
 			curLatLng = [position.coords.latitude, position.coords.longitude];
 			curLatLngAccuracy = position.coords.accuracy;			
 			map.panTo(curLatLng);
 			marker.setLatLng (curLatLng);
-			if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-				marker.bindPopup("Not your current location? Drag the marker to correct!").openPopup();
+			if(toShowPopup){
+				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+					marker.bindPopup("Not your current location? Drag the marker to correct!").openPopup();
+				}
+				else{	
+					marker.bindPopup(i18n.t('messages.marker-popup')).openPopup();
+				}
 			}
-			else{	
-				marker.bindPopup(i18n.t('messages.marker-popup')).openPopup();
+			else{
+				//don't show popup
 			}
 		},
 		function(error) {
@@ -393,8 +400,8 @@ function initialize() {
 	
 	//show the user' contributions
 	$("#start-menu-my, #navbar-my").click(function(){		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#allmap-stat,#info").hide();		
-		$("#map,.legend").show();
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#allmap-stat,#info, #mymap-stat,.legend").hide();		
+		$("#map").show();
 		$("#navbar-start,#navbar-all,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-my").addClass("ui-btn-active");			
 		
@@ -424,16 +431,21 @@ function initialize() {
 		
 		//read data from the local database
 		db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+			if(err){ 
+				return;
+			}
 			//process all docs
 			var locations=[];
 			var emos=[];
 			var ii=0;
 			var emo_sum=0.0;
 			doc.rows.forEach(function(todo) {
-				locations.push(todo.doc.location);
-				emo_sum = emo_sum + parseInt(todo.doc.comfort);
-				emos.push(todo.doc.comfort);
-				ii++;
+				if(todo.doc.location!=null&&todo.doc.comfort!=null){
+					locations.push(todo.doc.location);
+					emo_sum = emo_sum + parseInt(todo.doc.comfort);
+					emos.push(todo.doc.comfort);
+					ii++;
+				}				
 			});
 			markersMy = vizEmos(map, locations, emos, ln.language.code);
 			if (ii!=0){
@@ -454,7 +466,7 @@ function initialize() {
 			}
 				
 			addLegend(ln.language.code);
-			$("#mymap-stat").show();			
+			$("#mymap-stat,.legend").show();
 		});
 		
 	}); 
@@ -478,15 +490,16 @@ function initialize() {
 			}
 			//start the main page
 			$("#start-menu").show();
-			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, .legend").hide();
+			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, #allmap-stat, .legend").hide();
 			$("#navbar-start").addClass("ui-btn-active");
 			$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
+			map.hasLayer(marker) || map.addLayer(marker);
 			map._onResize();
 			return;
 		}	
 		
-		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#info").hide();
-		$("#map,.legend").show();		
+		$("#start-menu,#slider-comfort,#checkbox-adj,#checkbox-conx,#mymap-stat,#info,.legend, #allmap-stat").hide();
+		$("#map").show();		
 		$("#navbar-start,#navbar-my,#navbar-about").removeClass("ui-btn-active");
 		$("#navbar-all").addClass("ui-btn-active");	
 		
@@ -510,6 +523,42 @@ function initialize() {
 		//read data from the server database
 		var db_server = new PouchDB(remoteAllCouch);
 		db_server.allDocs({include_docs: true, descending: true}, function(err, doc) {
+			if(err){
+				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+					navigator.notification.alert("The map displaying all people's contributions can not be shown due to no Internet Connection!", null, "EmoMap", "OK" );
+				}
+				else{	
+					navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "EmoMap", i18n.t('messages.ok') );
+				}
+				//start the main page
+				$("#start-menu").show();
+				$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat, #allmap-stat, .legend").hide();
+				$("#navbar-start").addClass("ui-btn-active");
+				$("#navbar-my,#navbar-all,#navbar-about").removeClass("ui-btn-active");
+				map.hasLayer(marker) || map.addLayer(marker);
+				map._onResize();
+				return;
+			}
+			
+			//process all layers
+			var locations=[];
+			var emos=[];
+			doc.rows.forEach(function(todo) {
+				if(todo.doc.location!=null&&todo.doc.comfort!=null){
+					locations.push(todo.doc.location);
+					emos.push(todo.doc.comfort);
+				}
+			});	
+			markersAll = vizEmos(map, locations, emos, ln.language.code);
+			generateAllEmos (curLatLng, locations, emos, ln.language.code); //add stat.
+			addLegend(ln.language.code);
+			$(".legend, #allmap-stat").show();
+		});
+		
+		/*
+		//read data from the server database
+		var db_server = new PouchDB(remoteAllCouch);
+		db_server.allDocs({include_docs: true, descending: true}, function(err, doc) {
 			//process all layers
 			var locations=[];
 			var emos=[];
@@ -520,7 +569,9 @@ function initialize() {
 			markersAll = vizEmos(map, locations, emos, ln.language.code);
 			generateAllEmos (curLatLng, locations, emos, ln.language.code); //add stat.
 			addLegend(ln.language.code);
+			$(".legend, #allmap-stat").show();
 		});
+		*/
 	}); 
 	
 	//information about emomap
@@ -545,8 +596,10 @@ function initialize() {
 		$("#start-menu").show();
 		$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
+		//$("#navbar-start").addClass("ui-btn-active");
 		marker.setIcon(EmoIcon());
 		marker.closePopup();
+		toShowPopup=false;
 	});
 	$("#comfort_next").click(function(){
 		//go to adj page
@@ -581,6 +634,8 @@ function initialize() {
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		
 		var timestamp = new Date().toISOString();		
+		//here get LatLng of the marker
+		curLatLng=[marker.getLatLng().lat, marker.getLatLng().lng];
 		var emo = {
 			_id: timestamp,
 			user: uuid,
@@ -598,6 +653,7 @@ function initialize() {
 				//console.log('Successfully posted a todo!');
 			}
 		});
+		toShowPopup = false;
 		
 		if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
 			navigator.notification.alert("Thank you very much for your contribution!", alertDismissed_contributionSuccess, "EmoMap", "OK" );
@@ -700,7 +756,7 @@ function generateAllEmos (curLoc, locations, emos, lang){
 			$("#allmap-stat").html ("No body has added an emotional rating within 5km of your current location.");
 		}
 		else{	
-			$("#allmap-stat").html (i18n.t('stat.total_all') +"<br/><br/>");
+			$("#allmap-stat").html (i18n.t('stat.nopoint') +"<br/><br/>");
 		}
 	}		
 	$("#allmap-stat").show();
