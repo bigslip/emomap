@@ -10,7 +10,11 @@ function initialize() {
 	adj = "",
 	conx_with = "alone",
 	conx_first = "first_time",
+	isContributing = false, //is it in contributing mode?
 	marker;
+	
+	var watchId = null;
+	var watchCallback_Popup = true; //true means the first time of receiving the watchPosition result
 	
 	if (navigator.notification) { // Override default HTML alert with native dialog
 		window.alert = function (message) {
@@ -58,19 +62,34 @@ function initialize() {
 	var networkState = navigator.connection.type;	
 	
 	//need to check GPS is enabled or not
-	navigator.geolocation.getCurrentPosition(
+	navigator.geolocation.getCurrentPosition(	
 	function(position) {
 		curLatLng = [position.coords.latitude, position.coords.longitude];
 		curLatLngAccuracy = position.coords.accuracy;
 		map.panTo(curLatLng);
-		marker.setLatLng (curLatLng);					
+		marker.setLatLng (curLatLng);	
+		if (!isContributing){
+			//marker.setPopupContent("Note that this may not be your current location!").closePopup();
+			if(marker.getPopup()!=null)
+				marker.setPopupContent("Note that this may not be your current location!").closePopup();
+			else
+				marker.bindPopup("Note that this may not be your current location!").closePopup();
+		}
 	},
 	function(error) {
 		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+		if (!isContributing){
+			//marker.setPopupContent("Note that this may not be your current location!").closePopup();
+			if(marker.getPopup()!=null)
+				marker.setPopupContent("Note that this may not be your current location!").closePopup();
+			else
+				marker.bindPopup("Note that this may not be your current location!").closePopup();
+		}
 	},
 	{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 	);
 	
+	/*
 	navigator.compass.getCurrentHeading(
 	function(heading) {
 		curHeading = heading.magneticHeading;						
@@ -79,7 +98,7 @@ function initialize() {
 		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 	}
     );
-	
+	*/
 	//pouchdb setting
 	var markersMy, markersAll;	
 	var db = new PouchDB('emomap_local',{auto_compaction:true});
@@ -294,11 +313,18 @@ function initialize() {
 	//add a marker to identify the map center
 	var locationIcon = EmoIcon();
 	marker = L.marker(curLatLng, {icon: EmoIcon(), draggable: true}).addTo(map);	
+	//marker.bindPopup("Getting your current location ...").openPopup();
+	marker.dragging.disable();
 	marker.on('dragend', function(event) {
 		var latLng = event.target.getLatLng();  
 		curLatLng = [latLng.lat, latLng.lng];
+		if(watchId!=null){
+			navigator.geolocation.clearWatch(watchId);
+			watchId = null;
+		}
 	});
 	
+	/*
 	//add locate me control
 	//here should update curLatLng
 	L.control.locate({
@@ -313,7 +339,7 @@ function initialize() {
 		},
 		locateOptions: {enableHighAccuracy: true, maximumAge: 3000,timeout:10000,watch:false}
 	}).addTo(map);
-		
+	*/	
 	//add legend: for my map and all map only
 	var legend = L.control({position: 'topright'});	
 	legend.onAdd = function (map) {		
@@ -322,13 +348,20 @@ function initialize() {
 	};	
 	legend.addTo(map);
 	
-	var toShowPopup = false;
+
 	$("#start-menu-contribute").click(function(){
-		toShowPopup = true;
+		isContributing = true;
+		marker.dragging.enable();
+		watchCallback_Popup = true;
 		map.hasLayer(markersAll) && map.removeLayer(markersAll);
 		map.hasLayer(markersMy) && map.removeLayer(markersMy);
 		map.hasLayer(marker) || map.addLayer(marker);
-		marker.closePopup();
+		//marker.bindPopup("Getting your current location ...").openPopup();
+		if(marker.getPopup()!=null)
+			marker.setPopupContent("Getting your current location ...").openPopup();
+		else
+			marker.bindPopup("Getting your current location ...").openPopup();
+		//marker.closePopup();
 
         //enabling comfort slider to start contributing
 		$("#start-menu,#checkbox-adj,#checkbox-conx,#mymap-stat,#allmap-stat,#info, .legend").hide();
@@ -344,30 +377,32 @@ function initialize() {
 		$("#radio-choice-21").prop("checked",true).checkboxradio("refresh"); 
 		$("#radio-choice-22").prop("checked",false).checkboxradio("refresh"); 	
 		
-		navigator.geolocation.getCurrentPosition(
+		watchId = navigator.geolocation.watchPosition(
 		function(position) {
 			curLatLng = [position.coords.latitude, position.coords.longitude];
 			curLatLngAccuracy = position.coords.accuracy;			
 			map.panTo(curLatLng);
 			marker.setLatLng (curLatLng);
-			if(toShowPopup){
+			if (watchCallback_Popup){			
 				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
-					marker.bindPopup("Not your current location? Drag the marker to correct!").openPopup();
+					//marker.bindPopup("Not your current location? Drag the marker to correct!").togglePopup();
+					//marker.getPopup().setContent("Not your current location? Drag the marker to correct!");
+					marker.setPopupContent("Not your current location? Drag the marker to correct!").openPopup();
 				}
 				else{	
-					marker.bindPopup(i18n.t('messages.marker-popup')).openPopup();
-				}
+					//marker.bindPopup(i18n.t('messages.marker-popup')).togglePopup();
+					marker.setPopupContent(i18n.t('messages.marker-popup')).openPopup();
+				}	
 			}
-			else{
-				//don't show popup
-			}
+			watchCallback_Popup = false;
 		},
 		function(error) {
 			//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			marker.setPopupContent("GPS error! Please drag the marker to set your current location!").openPopup();
 		},
 		{maximumAge: 3000, timeout: 30000, enableHighAccuracy: true }	
 		);
-		
+		/*
 		navigator.compass.getCurrentHeading(
 		function(heading) {			
 			curHeading = heading.magneticHeading;						
@@ -375,7 +410,7 @@ function initialize() {
 		function(error) {
 			//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 		});		
-		
+		*/
 		//set all initial values		
 		level_of_comfort=4;
 		adj="";
@@ -419,7 +454,8 @@ function initialize() {
                 marker.setLatLng (curLatLng);			
             },
             function(error) {
-                if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
+                
+				if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
                     navigator.notification.alert("Can not get your current location!", null, "EmoMap", "OK" );
                 }
                 else{	
@@ -598,8 +634,13 @@ function initialize() {
 		$("#navbar-start,#navbar-my,#navbar-all,#navbar-about").removeClass("ui-disabled");//enable all nav bars
 		//$("#navbar-start").addClass("ui-btn-active");
 		marker.setIcon(EmoIcon());
-		marker.closePopup();
-		toShowPopup=false;
+		marker.setPopupContent("Note that this may not be your current location!").closePopup();
+		marker.dragging.disable();
+		isContributing = false; //not in contributing mode
+		if(watchId!=null){
+			navigator.geolocation.clearWatch(watchId);
+			watchId = null;
+		}
 	});
 	$("#comfort_next").click(function(){
 		//go to adj page
@@ -653,7 +694,12 @@ function initialize() {
 				//console.log('Successfully posted a todo!');
 			}
 		});
-		toShowPopup = false;
+		
+		if(watchId!=null){
+			navigator.geolocation.clearWatch(watchId);
+			watchId = null;
+		}		
+
 		
 		if(!((ln.language.code=="zh")||(ln.language.code=="de")||(ln.language.code=="it"))){
 			navigator.notification.alert("Thank you very much for your contribution!", alertDismissed_contributionSuccess, "EmoMap", "OK" );
@@ -666,7 +712,9 @@ function initialize() {
 			$("#slider-comfort,#checkbox-adj,#checkbox-conx,#info,#mymap-stat,#allmap-stat, .legend").hide();	
 			$("#navbar-start").addClass("ui-btn-active");
 			marker.setIcon(EmoIcon());
-			marker.closePopup();
+			marker.setPopupContent("Note that this may not be your current location!").closePopup();
+			isContributing = false; //not in contributing mode
+			marker.dragging.disable();
 			map._onResize();
 		}				
 	});
