@@ -92,7 +92,11 @@
 		"allemomap-nointernet": "由于没有网络连接，这个功能已被禁用!",
 		"location-enable": "请启用位置服务!",
 		"ok": "好",
-		"registration-noInternet": "由于没有网络连接，注册失败!"
+		"registration-noInternet": "由于没有网络连接，注册失败!",
+		"getting-location": "正在努力寻找您的当前位置 ...",
+		"warning-location": "注意，这里可能不是您的当前位置！",
+		"gps-error":"GPS错误! 请拖动图标设置您的当前位置！",
+		"contribution-success-noInternet":"非常感谢您的情感反馈！由于现在是离线，请您在有网络连接的时候重新打开这个程序以便自动上传您的反馈。"
     },
 	"legend":
     {

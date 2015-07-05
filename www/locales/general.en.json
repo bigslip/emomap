@@ -92,7 +92,11 @@
 		"allemomap-nointernet": "The map displaying all people's contributions can not be shown due to no Internet Connection!",
 		"location-enable": "Please enable your location services!",
 		"ok": "OK",
-		"registration-noInternet": "Registration fails due to no Internet connection!"
+		"registration-noInternet": "Registration fails due to no Internet connection!",
+		"getting-location": "Getting your current location ...",
+		"warning-location": "Note that this may not be your current location!",
+		"gps-error":"GPS error! Please drag the marker to set your current location!",
+		"contribution-success-noInternet":"Thank you for the contribution. Note that you are currently in an offline mode, please re-open the app once you have Internet connection to share your contributions. "
     },
 	"legend":
     {

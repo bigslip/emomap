@@ -92,7 +92,11 @@
 		"allemomap-nointernet": "Keine Internetverbindung: Die Karte mit allen Beiträgen kann nicht geladen werden.",
 		"location-enable": "Bitte aktivieren Sie Ihre Lokalisierungservices.",
 		"ok": "OK",
-		"registration-noInternet": "Keine Internetverbindung: Die Registrierung kann nicht abgeschlossen werden."
+		"registration-noInternet": "Keine Internetverbindung: Die Registrierung kann nicht abgeschlossen werden.",
+		"getting-location": "Getting your current location ...",
+		"warning-location": "Note that this may not be your current location!",
+		"gps-error":"GPS error! Please drag the marker to set your current location!",
+		"contribution-success-noInternet":"Vielen Dank für Ihre Bewertung!"
     },
 	"legend":
     {
