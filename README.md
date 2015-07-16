@@ -10,16 +10,16 @@ Open a command window in the project folder.
 
 Add the platforms you want to run EmoMap on:
 
-´´´
+```
 cordova platform add android
 cordova platform add browser
-´´´
+```
 
 ### Install plugins
 
 EmoMap makes use of some Cordova plugins, which need to be installed.
 
-´´´
+```
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
 
@@ -31,7 +31,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera
 cordova plugin add cordova-plugin-globalization
 cordova plugin add cordova-plugin-diagnostic
 cordova plugin add org.apache.cordova.dialogs
-´´´
+```
 
 ### Run your database
 
