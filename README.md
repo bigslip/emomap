@@ -39,7 +39,8 @@ Run a local CouchDB instance. Create a file `www/settings.js` and put the follow
 
 ```js
 var SETTINGS = {
-	db_url = '<Your CouchDB URL>'
+	db_points_url = '<Your CouchDB URL: emotional contribution database>',
+	db_users_url = '<Your CouchDB URL: user database>'
 };
 ```
 

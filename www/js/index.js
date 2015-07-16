@@ -91,7 +91,7 @@ function initialize() {
 	//pouchdb setting
 	var markersMy, markersAll;	
 	var db = new PouchDB('emomap_local',{auto_compaction:true});
-	var remoteAllCouch = SETTINGS.db_url;
+	var remoteAllCouch = SETTINGS.db_points_url;
 	db.changes({
 		since: 'now',
 		live: true
@@ -154,7 +154,7 @@ function initialize() {
 			return;
 		}
 	
-		var db_users = new PouchDB(SETTINGS.db_url);
+		var db_users = new PouchDB(SETTINGS.db_users_url);
 		var timestamp= new Date().toISOString();		
 		db_users.get(uuid).then(function (doc) {
 			//if existed, update the user
