@@ -91,7 +91,7 @@ function initialize() {
 	//pouchdb setting
 	var markersMy, markersAll;	
 	var db = new PouchDB('emomap_local',{auto_compaction:true});
-	var remoteAllCouch = 'http://web:emomap@128.130.178.154:8080/emomap_alltry';
+	var remoteAllCouch = 'http://128.130.178.158:80/emomap_alltry';
 	db.changes({
 		since: 'now',
 		live: true
@@ -154,7 +154,7 @@ function initialize() {
 			return;
 		}
 	
-		var db_users = new PouchDB('http://web:emomap@128.130.178.154:8080/emomap_usertry');
+		var db_users = new PouchDB('http://128.130.178.158:80/emomap_usertry');
 		var timestamp= new Date().toISOString();		
 		db_users.get(uuid).then(function (doc) {
 			//if existed, update the user
